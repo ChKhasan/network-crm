@@ -14,4 +14,5 @@ export default {
   async putProfile(config = {}) {
     return await $nuxt.$axiosInstance.put("/auth/update", config);
   },
+
 };

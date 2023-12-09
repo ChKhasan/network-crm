@@ -920,13 +920,25 @@ export default {
     },
     addFile() {
       this.form.files.push({
-        indexId: this.form.files.length > 0 ? this.form.files.at(-1).indexId + 1:1,
+        indexId: this.form.files.length > 0 ? this.form.files.at(-1).indexId + 1 : 1,
         name: {
           ru: "",
           en: "",
         },
         file: "",
       });
+    },
+    async deleteEventFiles() {
+      try {
+        const data = await eventsApi.deleteEventFiles({ id: this.$route.params.id });
+        this.fileList = [];
+        this.image = "";
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
     },
     dateHandleChange(e) {
       this.form.start_date = e[0];

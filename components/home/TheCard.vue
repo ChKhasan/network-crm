@@ -1,6 +1,29 @@
 <template lang="html">
   <div class="the-card rounded-[30px] bg-bg-grey px-4 py-[10px]">
-    <div class="image h-[210px] overflow-hidden rounded-2xl">
+    <div class="image h-[210px] overflow-hidden rounded-2xl relative">
+      <div class="absolute left-4 top-4">
+        <p
+          class="flex gap-2 rounded-[500px] px-5 h-9 items-center bg-white text-[#00A96C] font-semibold text-[14px]"
+        >
+          <svg
+            width="12"
+            height="16"
+            viewBox="0 0 12 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.665 10.1675C10.665 12.8364 8.5014 15 5.83249 15C3.16358 15 1 12.8364 1 10.1675C1 9.27817 1.1691 8.37909 1.45695 7.50948C1.69107 8.48385 2.56814 9.20794 3.61432 9.20794C4.83968 9.20794 5.83303 8.21459 5.83303 6.98924C5.83303 5.76388 4.99754 4.92995 4.99754 3.73873C4.99754 2.18825 6.12056 1 7.40842 1C7.40842 2.85866 8.08923 3.56194 8.82828 4.75516C9.7056 6.17161 10.665 7.72056 10.665 10.1675Z"
+              stroke="#00A96C"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Aktiv
+        </p>
+      </div>
       <img
         class="h-full w-full object-cover"
         :src="event?.image"
@@ -19,7 +42,7 @@
         <div class="flex gap-2">
           <span
             class="px-5 py-[10px] rounded-[500px] bg-white text-[14px] font-semibold"
-            >{{ event?.start_date }}</span
+            >{{ moment(event?.start_date).format("DD MMM YYYY, HH:mm") }}</span
           >
           <span
             class="flex gap-1 px-5 py-[10px] rounded-[500px] bg-white text-[14px] font-semibold"
@@ -127,8 +150,13 @@
   </div>
 </template>
 <script>
+import moment from "moment";
+
 export default {
   props: ["event"],
+  methods: {
+    moment,
+  },
 };
 </script>
 <style lang="css" scoped>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page pt-10">
+  <div class="home-page pt-10 pb-[160px]">
     <div class="max-w-[818px] mx-auto 2xl:px-4">
       <div class="mb-3">
         <h4 class="text-[24px] text-black decor-500">Tadbirlar</h4>
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="list mt-8 flex flex-col gap-6">
-        <TheCard v-for="event in events" :key="event?.id" :event="event"/>
+        <TheCard v-for="event in events" :key="event?.id" :event="event" />
       </div>
     </div>
   </div>

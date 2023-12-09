@@ -1,13 +1,35 @@
 <template lang="html">
-  <div class="create pt-[120px] pb-[120px] max-w-[818px] mx-auto">
+  <div class="create pt-[22px] pb-[120px] max-w-[818px] mx-auto">
+    <div class="mb-[42px]">
+      <button
+        @click="$router.push('/')"
+        class="h-12 px-5 rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold text-black gap-2"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g opacity="0.4">
+            <path
+              d="M14.1666 7.06844L14.1666 12.9317C14.1666 14.218 12.7712 15.0194 11.6601 14.3713L6.6345 11.4397C5.53199 10.7965 5.53199 9.20355 6.6345 8.56042L11.6601 5.62881C12.7712 4.98067 14.1666 5.78212 14.1666 7.06844Z"
+              fill="#28303F"
+            />
+          </g>
+        </svg>
+        Tadbirlar royxatiga qaytish
+      </button>
+    </div>
     <div class="flex justify-between">
       <h4 class="text-[24px] decor-500 text-black">Yangi tadbir qo‘shish</h4>
       <div class="flex gap-3">
         <button
-          @click="$router.push('/')"
-          class="h-12 px-5 rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold text-black gap-2"
+          @click="visibleDelete = true"
+          class="h-12 w-12 rounded-xl bg-apple-grey flex items-center justify-center text-[14px] font-semibold text-black gap-2"
         >
-          Bekor qilish<svg
+          <svg
             width="20"
             height="20"
             viewBox="0 0 20 20"
@@ -15,8 +37,30 @@
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M14.4617 14.4441L5.575 5.55576M5.575 14.4441L14.4617 5.55576"
-              stroke="#020105"
+              d="M15.6234 7.77756V15.2767C15.6234 16.6576 14.5042 17.7767 13.1234 17.7767H7.01255C5.63171 17.7767 4.51255 16.6576 4.51255 15.2767L4.51255 7.77756M3.40088 4.44589L16.7342 4.44589M8.95671 2.22339L11.1792 2.22339M7.21838 8.88922L7.21838 14.4434M10.0675 8.88922L10.0675 14.4434M12.81 8.88922V14.4434"
+              stroke="#FF0000"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+          @click="$router.push(`/event/${$route.params.id}`)"
+          class="h-12 px-5 rounded-xl bg-[#3C4BDC] flex items-center text-[14px] font-semibold text-white gap-2"
+        >
+          O'zgartirish
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.1968 9.6172L12.1257 7.54607M7.13627 16.6784L16.6801 7.13465L12.8638 3.31835L3.31997 12.8621L3.31997 16.6794L7.13627 16.6784Z"
+              stroke="white"
               stroke-width="1.5"
               stroke-miterlimit="10"
               stroke-linecap="round"
@@ -696,6 +740,56 @@
       </div>
       <template slot="footer"></template>
     </a-modal>
+    <a-modal
+      v-model="visibleDelete"
+      centered
+      @ok="() => (modal2Visible = false)"
+      :width="524"
+    >
+      <div>
+        <div class="pb-6 border-[0] border-b border-solid border-grey-8">
+          <h4 class="decor-500 text-[24px] text-black">Spiker qo’shish</h4>
+        </div>
+        <div class="flex flex-col items-center gap-2 mt-6">
+          <h4 class="text-[24px] decor-500 text-black max-w-[363px] text-center">Tadbirni ochirishga aminmisiz?</h4>
+          <p class="text-base text-grey-80">Tadbirni qaytarib bolmaydi</p>
+        </div>
+          <div class="btns grid grid-cols-2 gap-3 mt-[28px]">
+            <button
+              @click="visibleDelete = false"
+              class="h-12 px-5 w-full rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold justify-center text-black gap-2"
+            >
+              Yoq, bekor qilish
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.4617 14.4443L5.575 5.556M5.575 14.4443L14.4617 5.556"
+                  stroke="#020105"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              @click="deleteEvent"
+              class="h-12 px-5 rounded-xl w-full bg-[#F00] flex items-center text-[14px] font-semibold text-white justify-center gap-2"
+            >
+              Xa, ochirib yuborish <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.6233 6.77731V14.2765C13.6233 15.6573 12.5042 16.7765 11.1233 16.7765H5.01249C3.63165 16.7765 2.51248 15.6573 2.51248 14.2765L2.51248 6.77731M1.40082 3.44564L14.7342 3.44564M6.95665 1.22314L9.17915 1.22314M5.21832 7.88898L5.21832 13.4431M8.06749 7.88898L8.06749 13.4431M10.81 7.88898V13.4431" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+            </button>
+          </div>
+      </div>
+      <template slot="footer"></template>
+    </a-modal>
     <Loader v-if="loading" />
   </div>
 </template>
@@ -718,6 +812,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      visibleDelete: false,
       loading: true,
       visible: false,
       editorOption: {
@@ -972,6 +1067,24 @@ export default {
     dateHandleChange(e) {
       this.form.start_date = e[0];
       this.form.end_date = e[1];
+    },
+    deleteEvent() {
+      this.__DELETE_EVENT();
+    },
+    async __DELETE_EVENT() {
+      try {
+        await eventsApi.deleteEvent({ id: this.$route.params.id });
+        this.$notification["success"]({
+          message: "Success",
+          description: "Tadbir muvaffaqiyatli o'chirildi",
+        });
+        this.$router.push("/");
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
     },
     onSubmitSpeaker() {
       this.$refs.ruleForm1.validate((valid) => {

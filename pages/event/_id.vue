@@ -878,7 +878,7 @@ export default {
           description: e.response.statusText,
         });
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
     async __GET_EVENT(form) {
@@ -892,13 +892,13 @@ export default {
           speakers: rest.speakers.map((item, index) => {
             return {
               ...item,
-              indexId: index,
+              indexId: index + 1,
             };
           }),
           files: rest.files.map((item, index) => {
             return {
               ...item,
-              indexId: index,
+              indexId: index + 1,
             };
           }),
         };
@@ -926,8 +926,55 @@ export default {
       this.previewVisible = true;
     },
     handleRemove() {
-      this.fileList = [];
-      this.image = "";
+      this.deleteEventImage();
+    },
+    async deleteEventImage() {
+      try {
+        const data = await eventsApi.deleteEventImage({ id: this.$route.params.id });
+        this.fileList = [];
+        this.image = "";
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
+    },
+    async deleteEventFiles(id) {
+      try {
+        const data = await eventsApi.deleteEventFiles({
+          payload: { file_id: id },
+          id: this.$route.params.id,
+        });
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
+    },
+    async deleteEventSpeakers(itemId) {
+      try {
+        const data = await eventsApi.deleteEventSpeakers({
+          payload: { speaker_id: itemId },
+          id: this.$route.params.id,
+        });
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
+    },
+    async deleteFiles(url) {
+      try {
+        const data = await eventsApi.deleteFiles({ file: url });
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
     },
     handleChange({ fileList }) {
       this.imgLoad = true;
@@ -944,7 +991,8 @@ export default {
           fileList[0]?.response?.upload_url;
       }
     },
-    deleteSpeakerImg() {
+    async deleteSpeakerImg() {
+      await this.deleteFiles();
       this.imageSpeaker = "";
       this.formSpeaker.image = "";
       this.fileListSpeaker = [];
@@ -959,8 +1007,16 @@ export default {
     handleOk() {
       this.visible = false;
     },
-    deleteFile(indexId) {
-      this.form.files = this.form.files.filter((item) => item.indexId != indexId);
+    async deleteFile(indexId) {
+      let obj = await this.form.files.find((item) => item.indexId == indexId);
+      console.log(obj);
+      if (obj?.id) {
+        await this.deleteEventFiles(obj.id);
+        console.log(obj.id);
+        this.__GET_EVENT();
+      } else {
+        this.form.files = this.form.files.filter((item) => item.indexId != indexId);
+      }
     },
     addFile() {
       this.form.files.push({
@@ -979,6 +1035,7 @@ export default {
     onSubmitSpeaker() {
       this.$refs.ruleForm1.validate((valid) => {
         if (valid) {
+          console.log(this.edit);
           if (this.edit) {
             let obj = this.form.speakers.find((elem) => elem.id == this.edit);
             obj = {
@@ -997,8 +1054,14 @@ export default {
         }
       });
     },
-    deleteSpeaker(indexId) {
-      this.form.speakers = this.form.speakers.filter((item) => item.indexId != indexId);
+    async deleteSpeaker(indexId) {
+      let obj = await this.form.speakers.find((item) => item.indexId == indexId);
+      if (obj?.id) {
+        await this.deleteEventSpeakers(obj.id);
+        this.__GET_EVENT();
+      } else {
+        this.form.speakers = this.form.speakers.filter((item) => item.indexId != indexId);
+      }
     },
     editSpeaker(indexId) {
       this.formSpeaker = {
