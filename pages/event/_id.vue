@@ -816,6 +816,7 @@ export default {
       edit: null,
       formSpeaker: {
         image: "",
+        show_img: "",
         name: {
           ru: "",
           en: "",
@@ -893,6 +894,8 @@ export default {
             return {
               ...item,
               indexId: index + 1,
+              show_img: item.image,
+              image: null,
             };
           }),
           files: rest.files.map((item, index) => {
@@ -933,6 +936,22 @@ export default {
         const data = await eventsApi.deleteEventImage({ id: this.$route.params.id });
         this.fileList = [];
         this.image = "";
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
+    },
+    async deleteSpeakerImage(obj) {
+      try {
+        const data = await eventsApi.deleteSpeakerImage({
+          id: this.$route.params.id,
+          payload: { speaker_id: obj?.id },
+        });
+        this.imageSpeaker = "";
+        this.formSpeaker.image = "";
+        this.fileListSpeaker = [];
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
@@ -992,16 +1011,23 @@ export default {
       }
     },
     async deleteSpeakerImg() {
-      await this.deleteFiles();
-      this.imageSpeaker = "";
-      this.formSpeaker.image = "";
-      this.fileListSpeaker = [];
+      const speakerIndex = this.form.speakers.findIndex(
+        (elem) => elem.indexId === this.edit
+      );
+      if (this.form.speakers[speakerIndex]?.id) {
+        await this.deleteSpeakerImage(this.form.speakers[speakerIndex]);
+      } else {
+        this.imageSpeaker = "";
+        this.formSpeaker.image = "";
+        this.fileListSpeaker = [];
+      }
     },
     handleChangeSpeaker({ fileList }) {
       this.fileListSpeaker = fileList;
       if (fileList[0]?.response?.upload_url) {
         this.imageSpeaker = fileList[0]?.response?.show_url;
-        this.formSpeaker.image = fileList[0]?.response?.show_url;
+        this.formSpeaker.image = fileList[0]?.response?.upload_url;
+        this.formSpeaker.show_img = fileList[0]?.response?.show_url;
       }
     },
     handleOk() {
@@ -1009,10 +1035,8 @@ export default {
     },
     async deleteFile(indexId) {
       let obj = await this.form.files.find((item) => item.indexId == indexId);
-      console.log(obj);
       if (obj?.id) {
         await this.deleteEventFiles(obj.id);
-        console.log(obj.id);
         this.__GET_EVENT();
       } else {
         this.form.files = this.form.files.filter((item) => item.indexId != indexId);
@@ -1035,13 +1059,16 @@ export default {
     onSubmitSpeaker() {
       this.$refs.ruleForm1.validate((valid) => {
         if (valid) {
-          console.log(this.edit);
           if (this.edit) {
-            let obj = this.form.speakers.find((elem) => elem.id == this.edit);
-            obj = {
-              ...this.formSpeaker,
-              image: this.imageSpeaker,
-            };
+            const speakerIndex = this.form.speakers.findIndex(
+              (elem) => elem.indexId === this.edit
+            );
+            if (speakerIndex !== -1) {
+              this.form.speakers[speakerIndex] = {
+                ...this.formSpeaker,
+                show_img: this.imageSpeaker,
+              };
+            }
           } else {
             this.form.speakers.push({
               ...this.formSpeaker,
@@ -1049,10 +1076,11 @@ export default {
                 this.form.speakers.length > 0 ? this.form.speakers.at(-1).indexId + 1 : 1,
             });
           }
+
           this.visible = false;
-          console.log(this.form);
         }
       });
+      console.log(this.form);
     },
     async deleteSpeaker(indexId) {
       let obj = await this.form.speakers.find((item) => item.indexId == indexId);
@@ -1068,10 +1096,11 @@ export default {
         ...this.form.speakers.find((item) => item.indexId == indexId),
       };
       this.edit = indexId;
-      this.imageSpeaker = this.formSpeaker.image;
+      this.imageSpeaker = this.formSpeaker.show_img;
       this.visible = true;
     },
   },
+
   watch: {
     visible(val) {
       if (!val) {
@@ -1080,6 +1109,7 @@ export default {
         this.fileListSpeaker = [];
         this.formSpeaker = {
           image: "",
+          show_img: "",
           name: {
             ru: "",
             en: "",

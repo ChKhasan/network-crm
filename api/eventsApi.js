@@ -42,13 +42,13 @@ export default {
     );
   },
   async deleteEventSpeakers(config = {}) {
-    console.log(config);
     return await $nuxt.$axiosInstance.delete(
       `/crm/events/${config.id}/delete_speaker`,
       { data: config.payload }
     );
   },
   async deleteSpeakerImage(config = {}) {
+    console.log(config);
     return await $nuxt.$axiosInstance.patch(
       `/crm/events/${config.id}/delete_speaker_image/`,
       config.payload

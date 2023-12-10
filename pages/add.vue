@@ -809,6 +809,7 @@ export default {
       edit: null,
       formSpeaker: {
         image: "",
+        show_img: "",
         name: {
           ru: "",
           en: "",
@@ -909,7 +910,8 @@ export default {
       this.fileListSpeaker = fileList;
       if (fileList[0]?.response?.upload_url) {
         this.imageSpeaker = fileList[0]?.response?.show_url;
-        this.formSpeaker.image = fileList[0]?.response?.show_url;
+        this.formSpeaker.image = fileList[0]?.response?.upload_url;
+        this.formSpeaker.show_img = fileList[0]?.response?.show_url;
       }
     },
     handleOk() {

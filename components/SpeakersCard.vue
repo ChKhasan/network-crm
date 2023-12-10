@@ -2,9 +2,9 @@
   <div class="card px-4 py-4 rounded-xl bg-white">
     <div class="image h-[72px] w-[72px] overflow-hidden rounded-lg">
       <img
-        v-if="speaker.image"
+        v-if="speaker.show_img"
         class="w-full h-full object-cover"
-        :src="speaker.image"
+        :src="speaker.show_img"
         alt=""
       />
     </div>
