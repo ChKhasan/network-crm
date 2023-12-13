@@ -886,10 +886,12 @@ export default {
       try {
         const data = await eventsApi.getEventById({ id: this.$route.params.id });
         const { id, created_at, updated_at, ...rest } = data?.data;
+        this.image = rest?.image;
         this.form = {
           ...rest,
           category: rest.category.id,
           phone_number: `+${rest.phone_number}`,
+          image: null,
           speakers: rest.speakers.map((item, index) => {
             return {
               ...item,
@@ -906,7 +908,7 @@ export default {
           }),
         };
 
-        this.image = this.form.image;
+        // this.image = this.form.image;
       } catch (e) {
         this.$notification["error"]({
           message: "Error",

@@ -79,7 +79,11 @@ export default {
   methods: {
     async __GET_EVENTS() {
       try {
-        const data = await eventsApi.getEvents();
+        const data = await eventsApi.getEvents({
+          params: {
+            ...this.$route.query,
+          },
+        });
         this.events = data?.data?.results;
       } catch (e) {}
     },
