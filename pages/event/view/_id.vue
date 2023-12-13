@@ -214,12 +214,14 @@
               Tadbir havolasi:
               <a
                 class="text-base text-black underline"
-                href="https://www.figma.com/proto/5m2C"
-                >https://www.figma.com/proto/5m2C</a
+                target="_black"
+                :href="`${base_url_client}/event/join/${form?.qr_code?.uuid}`"
+                >{{ `${base_url_client}/event/join/${form?.qr_code?.uuid}` }}</a
               >
             </p>
             <a
-              href=""
+              :href="form?.qr_code?.qr_code"
+              download=""
               class="flex gap-[6px] items-center h-8 px-2 text-[#3C4BDC] text-base font-medium bg-bg-grey"
               >QR kodni yuklab olish<svg
                 width="20"
@@ -751,42 +753,57 @@
           <h4 class="decor-500 text-[24px] text-black">Spiker qo’shish</h4>
         </div>
         <div class="flex flex-col items-center gap-2 mt-6">
-          <h4 class="text-[24px] decor-500 text-black max-w-[363px] text-center">Tadbirni ochirishga aminmisiz?</h4>
+          <h4 class="text-[24px] decor-500 text-black max-w-[363px] text-center">
+            Tadbirni ochirishga aminmisiz?
+          </h4>
           <p class="text-base text-grey-80">Tadbirni qaytarib bolmaydi</p>
         </div>
-          <div class="btns grid grid-cols-2 gap-3 mt-[28px]">
-            <button
-              @click="visibleDelete = false"
-              class="h-12 px-5 w-full rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold justify-center text-black gap-2"
+        <div class="btns grid grid-cols-2 gap-3 mt-[28px]">
+          <button
+            @click="visibleDelete = false"
+            class="h-12 px-5 w-full rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold justify-center text-black gap-2"
+          >
+            Yoq, bekor qilish
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Yoq, bekor qilish
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.4617 14.4443L5.575 5.556M5.575 14.4443L14.4617 5.556"
-                  stroke="#020105"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-            <button
-              @click="deleteEvent"
-              class="h-12 px-5 rounded-xl w-full bg-[#F00] flex items-center text-[14px] font-semibold text-white justify-center gap-2"
+              <path
+                d="M14.4617 14.4443L5.575 5.556M5.575 14.4443L14.4617 5.556"
+                stroke="#020105"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            @click="deleteEvent"
+            class="h-12 px-5 rounded-xl w-full bg-[#F00] flex items-center text-[14px] font-semibold text-white justify-center gap-2"
+          >
+            Xa, ochirib yuborish
+            <svg
+              width="16"
+              height="18"
+              viewBox="0 0 16 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              Xa, ochirib yuborish <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.6233 6.77731V14.2765C13.6233 15.6573 12.5042 16.7765 11.1233 16.7765H5.01249C3.63165 16.7765 2.51248 15.6573 2.51248 14.2765L2.51248 6.77731M1.40082 3.44564L14.7342 3.44564M6.95665 1.22314L9.17915 1.22314M5.21832 7.88898L5.21832 13.4431M8.06749 7.88898L8.06749 13.4431M10.81 7.88898V13.4431" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
-            </button>
-          </div>
+              <path
+                d="M13.6233 6.77731V14.2765C13.6233 15.6573 12.5042 16.7765 11.1233 16.7765H5.01249C3.63165 16.7765 2.51248 15.6573 2.51248 14.2765L2.51248 6.77731M1.40082 3.44564L14.7342 3.44564M6.95665 1.22314L9.17915 1.22314M5.21832 7.88898L5.21832 13.4431M8.06749 7.88898L8.06749 13.4431M10.81 7.88898V13.4431"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <template slot="footer"></template>
     </a-modal>
@@ -812,6 +829,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      base_url_client: process.env.BASE_URL_CLIENT,
       visibleDelete: false,
       loading: true,
       visible: false,

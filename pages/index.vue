@@ -65,7 +65,7 @@
         <a-skeleton
           :paragraph="false"
           class="loading-card"
-          v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+          v-for="elem in [1, 2, 3, 4, 5]"
           :key="elem"
         />
       </div>
@@ -104,6 +104,7 @@ export default {
         const data = await eventsApi.getEvents({
           params: {
             ...this.$route.query,
+            page_size: this.$route.query?.page_size ? this.$route.query?.page_size : 5,
           },
         });
         this.totalPage = data?.data?.count;

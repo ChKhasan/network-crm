@@ -149,19 +149,26 @@
           class="qr-code px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
         >
           <div class="image w-[100px] h-[100px]">
-            <img class="w-full h-full" src="@/assets/images/image 2.png" alt="" />
+            <img
+              class="w-full h-full"
+              v-if="form?.qr_code?.qr_code"
+              :src="form?.qr_code?.qr_code"
+              alt=""
+            />
           </div>
           <div class="body flex flex-col gap-2 items-start justify-center">
             <p class="text-base text-black">
               Tadbir havolasi:
               <a
                 class="text-base text-black underline"
-                href="https://www.figma.com/proto/5m2C"
-                >https://www.figma.com/proto/5m2C</a
+                target="_black"
+                :href="`${base_url_client}/event/join/${form?.qr_code?.uuid}`"
+                >{{ `${base_url_client}/event/join/${form?.qr_code?.uuid}` }}</a
               >
             </p>
             <a
-              href=""
+              :href="form?.qr_code?.qr_code"
+              download=""
               class="flex gap-[6px] items-center h-8 px-2 text-[#3C4BDC] text-base font-medium bg-bg-grey"
               >QR kodni yuklab olish<svg
                 width="20"
@@ -306,7 +313,7 @@
           <div class="mt-4">
             <client-only>
               <l-map
-              v-if="markerLatLng.length > 0"
+                v-if="markerLatLng.length > 0"
                 @click="handleMapClick"
                 style="min-height: 250px; margin-bottom: 8px"
                 :zoom="13"
@@ -740,6 +747,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      base_url_client: process.env.BASE_URL_CLIENT,
       loading: true,
       visible: false,
       editorOption: {
