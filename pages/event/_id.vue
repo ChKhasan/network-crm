@@ -302,6 +302,25 @@
           </div>
         </div>
         <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
+          <h5 class="decor-500 text-[24px] text-black">Joylashuv</h5>
+          <div class="mt-4">
+            <client-only>
+              <l-map
+              v-if="markerLatLng.length > 0"
+                @click="handleMapClick"
+                style="min-height: 250px; margin-bottom: 8px"
+                :zoom="13"
+                :center="center"
+              >
+                <l-tile-layer
+                  url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                ></l-tile-layer>
+                <l-marker :lat-lng="markerLatLng"></l-marker>
+              </l-map>
+            </client-only>
+          </div>
+        </div>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
           <h5 class="decor-500 text-[24px] text-black">Tashkilotchilar</h5>
           <div class="max-w-[470px] flex flex-col gap-4 mt-4">
             <a-form-model-item class="form-item" prop="phone_number">
@@ -830,6 +849,8 @@ export default {
           en: "",
         },
       },
+      markerLatLng: [],
+      center: [],
     };
   },
   async mounted() {
@@ -908,7 +929,8 @@ export default {
             };
           }),
         };
-
+        this.markerLatLng = [Number(rest.lat), Number(rest.lon)];
+        this.center = [Number(rest.lat), Number(rest.lon)];
         // this.image = this.form.image;
       } catch (e) {
         this.$notification["error"]({
@@ -1101,6 +1123,12 @@ export default {
       this.edit = indexId;
       this.imageSpeaker = this.formSpeaker.show_img;
       this.visible = true;
+    },
+    handleMapClick(event) {
+      // Update marker position on map click
+      this.markerLatLng = [event.latlng.lat, event.latlng.lng];
+      this.form.lat = event.latlng.lat;
+      this.form.lon = event.latlng.lng;
     },
   },
 

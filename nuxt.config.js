@@ -38,7 +38,7 @@ export default {
 
   buildModules: ["@nuxtjs/tailwindcss"],
 
-  modules: ["@nuxtjs/axios", "@nuxtjs/dotenv"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/dotenv", "nuxt-leaflet"],
 
   build: {},
 };
