@@ -10,9 +10,20 @@ export default async function ({ redirect, $axios, store }) {
       });
     } catch (e) {
       if (e.response.status == 401) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        redirect("/registration");
+        try {
+          const tokens = await $axios.$post(
+            process.env.BASE_URL + "/auth/token/refresh",
+            {
+              refresh: localStorage.getItem("refreshToken"),
+            }
+          );
+          localStorage.setItem("accessToken", tokens?.access);
+          localStorage.setItem("refreshToken", tokens?.refresh);
+        } catch (e) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          redirect("/registration");
+        }
       }
     }
   }

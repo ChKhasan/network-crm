@@ -904,6 +904,7 @@ export default {
             return {
               ...item,
               indexId: index + 1,
+              id: item.id,
             };
           }),
         };

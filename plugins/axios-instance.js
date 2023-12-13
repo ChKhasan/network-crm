@@ -1,6 +1,7 @@
 export default ({ $axios, redirect, error }, inject) => {
   const axiosInstance = $axios.create({
-    baseURL: process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
+    baseURL:
+      process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
   });
   // axiosInstance.setHeader("Content-Type", "application/json");
 
@@ -16,16 +17,7 @@ export default ({ $axios, redirect, error }, inject) => {
     return response;
   });
 
-  axiosInstance.onError((e) => {
-    // const errors = [404, 500];
-    // if (errors.includes(e.response.status)) {
-    //   error({
-    //     statusCode: e.response.status,
-    //     message: "This page could not be found",
-    //     layout: "error",
-    //   });
-    // }
-
+  axiosInstance.onError(async (e) => {
     return Promise.reject(e);
   });
   inject("axiosInstance", axiosInstance);

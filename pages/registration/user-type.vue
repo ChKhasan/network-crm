@@ -36,11 +36,9 @@ export default {
           localStorage.removeItem("phone");
         }
       } catch (e) {
-        console.log(e);
         this.$notification["error"]({
           message: "Error",
-          description:
-            "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+          description: e.response.statusText,
         });
       }
     },
