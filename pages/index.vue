@@ -125,7 +125,7 @@ export default {
   },
   watch: {
     async search(val) {
-      if (val.length == 0) {
+      if (val.length == 0 && this.$route.query?.search) {
         await this.$router.replace({
           path: this.$route.path,
           query: {
