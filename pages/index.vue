@@ -7,6 +7,8 @@
       <div class="search">
         <div class="relative flex items-center w-full">
           <input
+            v-model="search"
+            @change="onSearch"
             class="rounded-[12px] w-full border border-solid border-grey-8 pl-12 bg-white h-12"
             type="text"
             placeholder="Tadbirni qidirish"
@@ -56,9 +58,23 @@
           </button>
         </div>
       </div>
-      <div class="list mt-8 flex flex-col gap-6">
+      <div class="list mt-8 flex flex-col gap-6" v-if="!loading">
         <TheCard v-for="event in events" :key="event?.id" :event="event" />
       </div>
+      <div class="list mt-8 flex flex-col gap-6" v-if="loading">
+        <a-skeleton
+          :paragraph="false"
+          class="loading-card"
+          v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+          :key="elem"
+        />
+      </div>
+      <VPagination
+        :load="true"
+        class="xl:hidden"
+        :totalPage="totalPage"
+        @getData="__GET_EVENTS"
+      />
     </div>
   </div>
 </template>
@@ -66,29 +82,62 @@
 <script>
 import TheCard from "../components/home/TheCard.vue";
 import eventsApi from "../api/eventsApi";
+import VPagination from "../components/VPagination.vue";
 export default {
   name: "IndexPage",
   data() {
     return {
       events: [],
+      totalPage: 1,
+      loading: false,
+      search: "",
     };
   },
   mounted() {
     this.__GET_EVENTS();
+    this.search = this.$route.query?.search ? this.$route.query?.search : "";
   },
   methods: {
     async __GET_EVENTS() {
       try {
+        this.loading = true;
         const data = await eventsApi.getEvents({
           params: {
             ...this.$route.query,
           },
         });
+        this.totalPage = data?.data?.count;
         this.events = data?.data?.results;
-      } catch (e) {}
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
+    async onSearch(e) {
+      if (this.$route.query?.search != e.target.value && e.target.value.length > 2) {
+        await this.$router.replace({
+          path: this.$route.path,
+          query: { ...this.$route.query, page: 1, search: e.target.value },
+        });
+        this.__GET_EVENTS();
+      }
     },
   },
-  components: { TheCard },
+  watch: {
+    async search(val) {
+      if (val.length == 0) {
+        await this.$router.replace({
+          path: this.$route.path,
+          query: {
+            page: 1,
+            page_size: this.$route.query.page_size,
+          },
+        });
+        this.__GET_EVENTS();
+      }
+    },
+  },
+  components: { TheCard, VPagination },
 };
 </script>
 <style lang="css" scoped>
@@ -96,5 +145,11 @@ export default {
   display: grid;
   grid-template-columns: 1fr 170px;
   grid-gap: 12px;
+}
+.loading-card :deep(.ant-skeleton-title) {
+  height: 230px;
+  border-radius: 30px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 </style>
