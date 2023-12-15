@@ -109,7 +109,7 @@ export default {
   methods: {
     submit() {
       const data = {
-        phone_number: `+998${this.form.phone_number.replaceAll(" ", "")}`,
+        phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
       };
       localStorage.setItem("phone", this.form.phone_number.replaceAll(" ", ""));
       this.$refs.ruleForm.validate((valid) => {

@@ -35,14 +35,11 @@ export default {
     };
   },
   methods: {
-   
     async __SEND_NUMBER(form) {
       try {
         const data = await sendNUmberApi.sendNumber(form);
         await this.$router.push("/registration/user-type");
-      } catch (e) {
-        console.log(e,"3490324873298");
-      }
+      } catch (e) {}
     },
   },
   components: { NumberCheck },

@@ -219,7 +219,7 @@ export default {
     },
     onSubmit() {
       const data = {
-        phone_number: `+998${this.form.phone_number.replaceAll(" ", "")}`,
+        phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
         sms_code: this.form.sms_code,
       };
       localStorage.setItem("accessCode", this.form.sms_code);

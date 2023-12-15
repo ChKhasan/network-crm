@@ -69,6 +69,9 @@
           :key="elem"
         />
       </div>
+      <div v-if="!loading && events.length == 0">
+        <a-empty />
+      </div>
       <VPagination
         :load="true"
         class="xl:hidden"
