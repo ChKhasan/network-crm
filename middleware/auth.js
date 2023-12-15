@@ -10,6 +10,7 @@ export default async function ({ redirect, $axios, store }) {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
+      store.commit('getProfile',data)
     } catch (e) {
       if (e.response.status == 401) {
         try {

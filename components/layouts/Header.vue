@@ -5,11 +5,18 @@
         <div>
           <h4 class="text-[24px] text-black decor-500">MFactor Praktikum</h4>
           <div class="flex gap-3 items-center">
-            <p class="text-[14px] text-black">+998 90 951 91 29</p>
+            <p class="text-[14px] text-black">
+              +{{
+                `${$store.state.profile?.phone_number}`
+                  .match(/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/)
+                  .filter((item, index) => index != 0)
+                  .join(" ")
+              }}
+            </p>
             <span class="flex h-5 w-[1px] bg-grey-light"></span>
             <p class="text-[14px] text-grey-64">Toshkent shahri</p>
             <span class="flex h-5 w-[1px] bg-grey-light"></span>
-            <p class="text-[14px] text-grey-64">Ismatullo</p>
+            <p class="text-[14px] text-grey-64">{{ $store.state.profile?.full_name }}</p>
           </div>
         </div>
         <div class="flex gap-3">
@@ -32,6 +39,7 @@
             </svg>
           </button>
           <button
+            @click="logout"
             class="flex px-6 h-12 items-center justify-center rounded-xl bg-white text-black text-base gap-2"
           >
             Выйти<svg
@@ -164,7 +172,15 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    async logout() {
+      await localStorage.removeItem("accessToken");
+      await localStorage.removeItem("refreshToken");
+      this.$router.push("/registration");
+    },
+  },
+};
 </script>
 <style lang="css" scoped>
 .tab .active {
