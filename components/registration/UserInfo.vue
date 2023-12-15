@@ -126,7 +126,7 @@ export default {
   },
   mounted() {
     if (localStorage.getItem("phone"))
-      this.form.phone_number = `+998${localStorage.getItem("phone")}`;
+      this.form.phone_number = `998${localStorage.getItem("phone")}`;
     if (localStorage.getItem("accessCode"))
       this.form.sms_code = localStorage.getItem("accessCode");
   },
