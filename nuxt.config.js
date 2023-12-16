@@ -33,6 +33,11 @@ export default {
     host: "localhost",
     port: 8000,
   },
+  loadingIndicator: {
+    name: "folding-cube",
+    color: "#1890ff",
+    background: "white",
+  },
   ssr: false,
   components: true,
 
