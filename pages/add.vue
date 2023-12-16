@@ -820,7 +820,7 @@ export default {
       previewVisible: false,
       previewImage: "",
       fileList: [],
-      base_url: process.env.BASE_URL,
+      base_url: process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
       image: "",
       imageSpeaker: "",
       categories: [],

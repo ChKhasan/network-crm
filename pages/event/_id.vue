@@ -747,7 +747,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
-      base_url_client: process.env.BASE_URL_CLIENT,
+      base_url_client: process.env.BASE_URL_CLIENT || 'http://network-events-tau.vercel.app',
       loading: true,
       visible: false,
       editorOption: {
@@ -835,7 +835,7 @@ export default {
       previewVisible: false,
       previewImage: "",
       fileList: [],
-      base_url: process.env.BASE_URL,
+      base_url: process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
       image: "",
       imageSpeaker: "",
       categories: [],
