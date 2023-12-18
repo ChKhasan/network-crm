@@ -98,7 +98,7 @@
             </span>
             <div class="flex w-full h-full relative items-center justify-center" v-else>
               <div class="px-6 py-4 rounded-3xl flex gap-6 upload-btns absolute">
-                <button>
+                <!-- <button>
                   <svg
                     width="33"
                     height="32"
@@ -121,8 +121,8 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                </button>
-                <span class="flex bg-white w-[1px] h-[27px] items-center"></span>
+                </button> -->
+                <!-- <span class="flex bg-white w-[1px] h-[27px] items-center"></span> -->
                 <button @click="handleRemove">
                   <svg
                     width="33"
@@ -257,7 +257,7 @@
             </p>
             <input
               type="text"
-              v-model="form.adress"
+              v-model="form.adress.ru"
               placeholder="Masalan"
               class="border w-full border-solid border-border-darik min-h-[54px] bg-white rounded-lg px-4 text-base"
             />
@@ -747,13 +747,13 @@ function getBase64(file) {
 export default {
   data() {
     return {
-      base_url_client: process.env.BASE_URL_CLIENT || 'http://network-events-tau.vercel.app',
+      base_url_client:
+        process.env.BASE_URL_CLIENT || "http://network-events-tau.vercel.app",
       loading: true,
       visible: false,
       editorOption: {
         theme: "snow",
       },
-      loading: false,
       imgLoad: false,
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -945,6 +945,8 @@ export default {
           message: "Error",
           description: e.response.statusText,
         });
+      } finally {
+        this.loading = false;
       }
     },
     onChange() {},

@@ -98,7 +98,7 @@
             </span>
             <div class="flex w-full h-full relative items-center justify-center" v-else>
               <div class="px-6 py-4 rounded-3xl flex gap-6 upload-btns absolute">
-                <button>
+                <!-- <button>
                   <svg
                     width="33"
                     height="32"
@@ -121,8 +121,8 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                </button>
-                <span class="flex bg-white w-[1px] h-[27px] items-center"></span>
+                </button> -->
+                <!-- <span class="flex bg-white w-[1px] h-[27px] items-center"></span> -->
                 <button @click="handleRemove">
                   <svg
                     width="33"

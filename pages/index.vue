@@ -107,7 +107,7 @@ export default {
         const data = await eventsApi.getEvents({
           params: {
             ...this.$route.query,
-            page_size: this.$route.query?.page_size ? this.$route.query?.page_size : 5,
+            page_size: this.$route.query?.page_size ? this.$route.query?.page_size : 12,
           },
         });
         this.totalPage = data?.data?.count;

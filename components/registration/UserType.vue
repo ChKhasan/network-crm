@@ -61,7 +61,7 @@
                 v-model="form.phone_number"
                 type="text"
               />
-              <button class="">
+              <button class="" @click="$router.push('/registration')">
                 <svg
                   class="xl:w-5 xl:h-5"
                   xmlns="http://www.w3.org/2000/svg"
@@ -188,6 +188,12 @@ export default {
     };
   },
   mounted() {
+    let inputs = document.querySelectorAll(".otp-input");
+    inputs.forEach((item, index) => {
+      if (index != 0 && !inputs[index - 1].value) {
+        item.classList.add("disabledItem");
+      }
+    });
     if (localStorage.getItem("phone"))
       this.form.phone_number = localStorage.getItem("phone");
     this.setInputPlaceholder();
@@ -207,12 +213,21 @@ export default {
         .forEach((input) => (input.placeholder = "*"));
     },
     handleOnComplete(value) {
-      console.log("OTP completed: ", value);
       this.form.sms_code = value;
     },
-    handleOnChange(value) {
-      console.log("OTP changed: ", value);
-      this.form.sms_code = value;
+    handleOnChange(value1) {
+      let inputs = document.querySelectorAll(".otp-input");
+      inputs.forEach((item, index) => {
+        if (index != 0 && !inputs[index - 1].value) {
+          item.classList.add("disabledItem");
+        } else {
+          item.classList.remove("disabledItem");
+        }
+      });
+      if (value1.length + 1 < inputs.length) {
+        inputs[value1.length + 1].classList.add("disabledItem");
+      }
+      this.form.sms_code = value1;
     },
     handleClearInput() {
       this.$refs.otpInput.clearInput();
@@ -241,6 +256,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+:deep(.disabledItem) {
+  pointer-events: none;
+}
 :deep(.otp-input) {
   width: 24px;
   height: 24px;

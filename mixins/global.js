@@ -5,7 +5,7 @@ export default {
       current: 1,
       params: {
         page: 1,
-        pageSize: 5,
+        pageSize: 12,
       },
       value: "",
     };

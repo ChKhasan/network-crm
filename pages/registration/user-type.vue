@@ -25,7 +25,6 @@ export default {
     async __SEND_CODE(form) {
       try {
         const data = await sendNUmberApi.sendCode(form);
-        console.log(data);
         if (data?.data?.code_valid) {
           this.$router.push("/registration/user-info");
           localStorage.setItem("accessCode", this.form.sms_code);

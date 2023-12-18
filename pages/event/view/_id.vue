@@ -141,7 +141,7 @@
                 <p
                   class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white font-semibold text-[14px]"
                 >
-                  07 мая 2023, 15:24
+                  {{ moment(form.created_at).format("DD MMM YYYY, HH:mm") }}
                 </p>
                 <p
                   class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white font-semibold text-[14px]"
@@ -222,6 +222,7 @@
             <a
               :href="form?.qr_code?.qr_code"
               download=""
+              target="_black"
               class="flex gap-[6px] items-center h-8 px-2 text-[#3C4BDC] text-base font-medium bg-bg-grey"
               >QR kodni yuklab olish<svg
                 width="20"
@@ -317,7 +318,7 @@
             <p class="text-base font-bold text-black mb-2">
               O’tkazilish manzili (Joy nomi / Telegram kanal / )
             </p>
-            <p class="text-[14px] text-black font-medium" v-html="form.adress"></p>
+            <p class="text-[14px] text-black font-medium" v-html="form.adress?.ru"></p>
             <!-- <input
               type="text"
               v-model="form.adress"
@@ -559,6 +560,13 @@
               </svg>
             </button>
           </div> -->
+        </div>
+        <div class="flex justify-center">
+          <p class="text-base text-grey-24 font-medium">
+            Tadbir yaratildi:
+            {{ moment(form.created_at).format("DD.MM.YYYY HH:mm") }} |
+            {{ $store.state.profile?.full_name }}
+          </p>
         </div>
       </div>
     </a-form-model>
@@ -829,7 +837,8 @@ function getBase64(file) {
 export default {
   data() {
     return {
-      base_url_client: process.env.BASE_URL_CLIENT,
+      base_url_client:
+        process.env.BASE_URL_CLIENT || "http://network-events-tau.vercel.app",
       visibleDelete: false,
       loading: true,
       visible: false,
@@ -918,7 +927,8 @@ export default {
       previewVisible: false,
       previewImage: "",
       fileList: [],
-      base_url: process.env.BASE_URL,
+      base_url: process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
+
       image: "",
       imageSpeaker: "",
       categories: [],
@@ -943,23 +953,14 @@ export default {
   },
   async mounted() {
     this.__GET_CATEGORIES();
+    // this.__GET_MEMBERS();
     await this.__GET_EVENT();
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   },
   methods: {
     moment,
-    onSubmit() {
-      const data = {
-        ...this.form,
-        telegram: !this.form.telegram.includes("@")
-          ? `@${this.form.telegram}`
-          : this.form.telegram,
-        files: this.form.files.filter((elem) => elem.name.ru && elem.file),
-        phone_number: Number(this.form.phone_number.replaceAll(" ", "").replace("+", "")),
-      };
-      this.$refs.ruleForm.validate((valid) => valid && this.__PUT_EVENTS(data));
-    },
+
     async __GET_CATEGORIES(data) {
       try {
         const data = await eventsApi.getCategoris();
@@ -971,30 +972,21 @@ export default {
         });
       }
     },
-    async __PUT_EVENTS(form) {
+    async __GET_MEMBERS(data) {
       try {
-        const data = await eventsApi.putEvents({
-          id: this.$route.params.id,
-          payload: form,
-        });
-        this.$notification["success"]({
-          message: "Succes",
-          description: `Tadbir muvaffaqiyatli o'zgartirildi`,
-        });
-        this.$router.push("/");
+        const data = await eventsApi.getMembers();
+        console.log(data);
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,
         });
-      } finally {
-        this.loading = false;
       }
     },
     async __GET_EVENT(form) {
       try {
         const data = await eventsApi.getEventById({ id: this.$route.params.id });
-        const { id, created_at, updated_at, ...rest } = data?.data;
+        const { id, updated_at, ...rest } = data?.data;
         this.form = {
           ...rest,
           category: rest.category.id,
@@ -1002,6 +994,8 @@ export default {
           speakers: rest.speakers.map((item, index) => {
             return {
               ...item,
+              show_img: item.image,
+              image: null,
               indexId: index,
             };
           }),
