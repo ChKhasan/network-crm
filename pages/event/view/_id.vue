@@ -207,7 +207,13 @@
           class="qr-code px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
         >
           <div class="image w-[100px] h-[100px]">
-            <img class="w-full h-full" src="@/assets/images/image 2.png" alt="" />
+            <!-- <img class="w-full h-full" src="@/assets/images/image 2.png" alt="" /> -->
+            <img
+              class="w-full h-full"
+              v-if="form?.qr_code?.qr_code"
+              :src="form?.qr_code?.qr_code"
+              alt=""
+            />
           </div>
           <div class="body flex flex-col gap-2 items-start justify-center">
             <p class="text-base text-black">

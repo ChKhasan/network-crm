@@ -55,12 +55,7 @@
           >
             <a-input v-model="form.company_data.name" placeholder="Kompaniya nomi" />
           </a-form-model-item>
-          <a-form-model-item
-            ref="name"
-            class="form-item"
-            label="Qisqacha ma'lumot"
-            prop="company_data.info"
-          >
+          <a-form-model-item ref="name" class="form-item" label="Qisqacha ma'lumot">
             <a-input
               v-model="form.company_data.info"
               type="textarea"
@@ -119,7 +114,6 @@ export default {
       rules: {
         company_data: {
           name: [{ required: true, message: "This field is required", trigger: "blur" }],
-          info: [{ required: true, message: "This field is required", trigger: "blur" }],
         },
       },
     };
