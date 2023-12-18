@@ -96,7 +96,7 @@
                 fill="#020105"
               />
             </svg>
-            32</span
+            {{event?.members_count}}</span
           >
         </div>
         <h5 class="text-[18px] decor-500 text-black">
