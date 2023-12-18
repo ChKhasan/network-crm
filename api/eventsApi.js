@@ -3,7 +3,7 @@ export default {
     return await $nuxt.$axiosInstance.get("/crm/events", config);
   },
   async getMembers(config = {}) {
-    return await $nuxt.$axiosInstance.get("/crm/members", config);
+    return await $nuxt.$axiosInstance.get("/crm/clients", config);
   },
   async getCategoris(config = {}) {
     return await $nuxt.$axiosInstance.get("/crm/categories", config);

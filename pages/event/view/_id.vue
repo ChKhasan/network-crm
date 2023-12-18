@@ -196,7 +196,7 @@
                       fill="#020105"
                     />
                   </svg>
-                  32
+                  {{ members?.length }}
                 </p>
               </div>
               <img class="w-full h-full object-cover" :src="image" alt="" />
@@ -338,6 +338,38 @@
               :speaker="speaker"
               @editSpeaker="editSpeaker"
               @deleteSpeaker="deleteSpeaker"
+            />
+          </div>
+        </div>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
+          <div class="flex justify-between">
+            <h5 class="decor-500 text-[24px] text-black">
+              Ishtirokchilar ({{ members?.length }})
+            </h5>
+            <button
+              @click="visibleMembers = true"
+              class="py-[10px] px-5 text-[#3C4BDC] rounded-[500px] bg-white flex gap-1 font-medium"
+            >
+              Barchasini ko‘rish
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.8542 2.66406C9.43999 2.66406 9.1042 2.99985 9.1042 3.41406C9.1042 3.82828 9.43999 4.16406 9.8542 4.16406V2.66406ZM16.5875 3.41406H17.3375C17.3375 2.99985 17.0018 2.66406 16.5875 2.66406V3.41406ZM15.8375 10.1466C15.8375 10.5608 16.1733 10.8966 16.5875 10.8966C17.0018 10.8966 17.3375 10.5608 17.3375 10.1466H15.8375ZM8.2114 10.7287C7.91849 11.0216 7.91847 11.4965 8.21135 11.7894C8.50422 12.0823 8.9791 12.0823 9.27201 11.7894L8.2114 10.7287ZM17.1078 3.95442C17.4007 3.66154 17.4008 3.18667 17.1079 2.89376C16.815 2.60085 16.3401 2.60083 16.0472 2.8937L17.1078 3.95442ZM7.9867 6.8724C8.40092 6.8724 8.7367 6.53661 8.7367 6.1224C8.7367 5.70818 8.40092 5.3724 7.9867 5.3724V6.8724ZM14.6284 12.0132C14.6284 11.599 14.2926 11.2632 13.8784 11.2632C13.4642 11.2632 13.1284 11.599 13.1284 12.0132H14.6284ZM9.8542 4.16406H16.5875V2.66406H9.8542V4.16406ZM15.8375 3.41406V10.1466H17.3375V3.41406H15.8375ZM9.27201 11.7894L17.1078 3.95442L16.0472 2.8937L8.2114 10.7287L9.27201 11.7894ZM7.9867 5.3724H6.26837V6.8724H7.9867V5.3724ZM6.26837 5.3724C4.63416 5.3724 3.3092 6.69735 3.3092 8.33156H4.8092C4.8092 7.52578 5.46258 6.8724 6.26837 6.8724V5.3724ZM3.3092 8.33156V13.7324H4.8092V8.33156H3.3092ZM3.3092 13.7324C3.3092 15.3666 4.63416 16.6916 6.26837 16.6916V15.1916C5.46258 15.1916 4.8092 14.5382 4.8092 13.7324H3.3092ZM6.26837 16.6916H11.6692V15.1916H6.26837V16.6916ZM11.6692 16.6916C13.3034 16.6916 14.6284 15.3666 14.6284 13.7324H13.1284C13.1284 14.5382 12.475 15.1916 11.6692 15.1916V16.6916ZM14.6284 13.7324V12.0132H13.1284V13.7324H14.6284Z"
+                  fill="#3C4BDC"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="mt-4 mx-auto grid grid-cols-2 gap-4">
+            <MembersCard
+              v-for="(member, index) in members"
+              :key="index"
+              :member="member"
             />
           </div>
         </div>
@@ -753,7 +785,7 @@
     <a-modal
       v-model="visibleDelete"
       centered
-      @ok="() => (modal2Visible = false)"
+      @ok="() => (visibleDelete = false)"
       :width="524"
     >
       <div>
@@ -815,6 +847,95 @@
       </div>
       <template slot="footer"></template>
     </a-modal>
+    <a-modal
+      v-model="visibleMembers"
+      centered
+      @ok="() => (visibleMembers = false)"
+      :width="524"
+    >
+      <div>
+        <div class="pb-6 border-[0] border-b border-solid border-grey-8">
+          <h4 class="decor-500 text-[24px] text-black">
+            Ishtirokchilar ({{ members_total }})
+          </h4>
+        </div>
+        <div class="search mt-6">
+          <div class="relative flex items-center w-full">
+            <input
+              v-model="search"
+              @input="onSearch"
+              class="rounded-[12px] w-full border border-solid border-grey-8 pl-12 bg-white h-12"
+              type="text"
+              placeholder="Tadbirni qidirish"
+            />
+            <svg
+              class="absolute left-4"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.3342 15.335L19.9992 20.001M17.3342 10.507C17.3342 14.278 14.2772 17.335 10.5062 17.335C6.73522 17.335 3.67822 14.278 3.67822 10.507C3.67822 6.73595 6.73522 3.67896 10.5062 3.67896C14.2772 3.67896 17.3342 6.73595 17.3342 10.507Z"
+                stroke="black"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="mt-6">
+          <div
+            class="mx-auto flex flex-col w-full gap-4 max-h-[624px] overflow-y-scroll pr-2 pb-4"
+          >
+            <MembersCard
+              class="border border-solid border-grey-8"
+              v-for="(member, index) in all_members"
+              :key="index"
+              :member="member"
+            />
+            <div v-if="loaderSize" class="flex justify-center">
+              <a-spin />
+            </div>
+          </div>
+        </div>
+        <div class="btns grid grid-cols-2 gap-3 mt-[28px]">
+          <button
+            @click="visibleMembers = false"
+            class="h-12 px-5 w-full rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold justify-center text-black gap-2"
+          >
+            Yopish
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.4617 14.4443L5.575 5.556M5.575 14.4443L14.4617 5.556"
+                stroke="#020105"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            @click="showMore"
+            class="h-12 px-5 rounded-xl w-full bg-[#3C4BDC] flex items-center text-[14px] font-semibold text-white justify-center gap-2"
+            :class="{ 'opacity-25 pointer-events-none': members_total < members_size }"
+          >
+            Yana korish +20
+          </button>
+        </div>
+      </div>
+      <template slot="footer"></template>
+    </a-modal>
     <Loader v-if="loading" />
   </div>
 </template>
@@ -824,6 +945,7 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import SpeakersCard from "@/components/SpeakersCard.vue";
+import MembersCard from "@/components/MembersCard.vue";
 import moment from "moment";
 import eventsApi from "@/api/eventsApi";
 function getBase64(file) {
@@ -837,6 +959,9 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      search: "",
+      visibleMembers: false,
+      loaderSize: false,
       base_url_client:
         process.env.BASE_URL_CLIENT || "http://network-events-tau.vercel.app",
       visibleDelete: false,
@@ -928,11 +1053,14 @@ export default {
       previewImage: "",
       fileList: [],
       base_url: process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
-
+      members: [],
+      all_members: [],
       image: "",
       imageSpeaker: "",
       categories: [],
       fileListSpeaker: [],
+      members_size: 10,
+      members_total: null,
       edit: null,
       formSpeaker: {
         image: "",
@@ -953,14 +1081,21 @@ export default {
   },
   async mounted() {
     this.__GET_CATEGORIES();
-    // this.__GET_MEMBERS();
+    this.__GET_MEMBERS_();
+    this.__GET_MEMBERS();
     await this.__GET_EVENT();
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   },
   methods: {
     moment,
-
+    async onSearch(e) {
+      if (this.$route.query?.search != e.target.value && e.target.value.length > 2) {
+        this.__GET_MEMBERS({ search: e.target.value });
+      } else {
+        this.__GET_MEMBERS({});
+      }
+    },
     async __GET_CATEGORIES(data) {
       try {
         const data = await eventsApi.getCategoris();
@@ -972,15 +1107,46 @@ export default {
         });
       }
     },
-    async __GET_MEMBERS(data) {
+    showMore() {
+      if (this.members_total > this.members_size) {
+        this.members_size += 20;
+        this.__GET_MEMBERS();
+      }
+    },
+    async __GET_MEMBERS_() {
       try {
-        const data = await eventsApi.getMembers();
-        console.log(data);
+        const data = await eventsApi.getMembers({
+          params: {
+            page_size: 10,
+          },
+        });
+        this.members = data?.data?.results;
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,
         });
+      } finally {
+      }
+    },
+    async __GET_MEMBERS(params = {}) {
+      try {
+        this.loaderSize = true;
+        const data = await eventsApi.getMembers({
+          params: {
+            page_size: this.members_size,
+            ...params,
+          },
+        });
+        this.all_members = data?.data?.results;
+        this.members_total = data?.data?.count;
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      } finally {
+        this.loaderSize = false;
       }
     },
     async __GET_EVENT(form) {
@@ -1155,7 +1321,7 @@ export default {
       }
     },
   },
-  components: { Loader, SpeakersCard },
+  components: { Loader, SpeakersCard, MembersCard },
 };
 </script>
 <style lang="css" scoped>
