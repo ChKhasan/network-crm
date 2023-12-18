@@ -3,7 +3,9 @@
     <div class="max-w-[818px] mx-auto 2xl:px-4 pt-10 flex flex-col gap-9 pb-6">
       <div class="flex justify-between">
         <div>
-          <h4 class="text-[24px] text-black decor-500">{{ $store.state.profile?.company?.name }}</h4>
+          <h4 class="text-[24px] text-black decor-500">
+            {{ $store.state.profile?.company?.name }}
+          </h4>
           <div class="flex gap-3 items-center">
             <p class="text-[14px] text-black">
               +{{
@@ -74,7 +76,9 @@
       </div>
       <div class="flex gap-4 tab">
         <button
-          class="active text-[14px] flex items-center gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid"
+          @click="$router.push('/')"
+          class="text-[14px] flex items-center gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
+          :class="{ active: $route.name == 'index' }"
         >
           <svg
             width="24"
@@ -112,6 +116,8 @@
           Tadbirlar
         </button>
         <button
+          @click="$router.push('/members')"
+          :class="{ active: $route.name == 'members' }"
           class="text-[14px] flex items-center gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
         >
           <svg

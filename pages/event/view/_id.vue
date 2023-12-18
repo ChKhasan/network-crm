@@ -349,6 +349,7 @@
             <button
               @click="visibleMembers = true"
               class="py-[10px] px-5 text-[#3C4BDC] rounded-[500px] bg-white flex gap-1 font-medium"
+              :class="{ 'pointer-events-none opacity-50': members_total <= 10 }"
             >
               Barchasini ko‘rish
               <svg
@@ -365,12 +366,15 @@
               </svg>
             </button>
           </div>
-          <div class="mt-4 mx-auto grid grid-cols-2 gap-4">
+          <div class="mt-4 mx-auto grid grid-cols-2 gap-4" v-if="members.length > 0">
             <MembersCard
               v-for="(member, index) in members"
               :key="index"
               :member="member"
             />
+          </div>
+          <div class="flex justify-center mt-6" v-else>
+            <a-empty />
           </div>
         </div>
         <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
@@ -1117,6 +1121,7 @@ export default {
       try {
         const data = await eventsApi.getMembers({
           params: {
+            event: this.$route.params.id,
             page_size: 10,
           },
         });
@@ -1134,6 +1139,7 @@ export default {
         this.loaderSize = true;
         const data = await eventsApi.getMembers({
           params: {
+            event: this.$route.params.id,
             page_size: this.members_size,
             ...params,
           },

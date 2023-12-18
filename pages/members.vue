@@ -2,16 +2,16 @@
   <div class="home-page pt-10 pb-[160px]">
     <div class="max-w-[818px] mx-auto 2xl:px-4">
       <div class="mb-3">
-        <h4 class="text-[24px] text-black decor-500">Tadbirlar</h4>
+        <h4 class="text-[24px] text-black decor-500">Ishtirokchilar</h4>
       </div>
       <div class="search">
         <div class="relative flex items-center w-full">
           <input
             v-model="search"
-            @change="onSearch"
+            @input="onSearch"
             class="rounded-[12px] w-full border border-solid border-grey-8 pl-12 bg-white h-12"
             type="text"
-            placeholder="Tadbirni qidirish"
+            placeholder="Ishtirokchi ni qidirish"
           />
           <svg
             class="absolute left-4"
@@ -31,7 +31,7 @@
             />
           </svg>
         </div>
-        <div>
+        <!-- <div>
           <button
             @click="$router.push('/add')"
             class="flex gap-2 h-12 rounded-xl bg-[#3C4BDC] items-center justify-center text-white px-5 text-[14px] font-semibold"
@@ -56,10 +56,10 @@
               />
             </svg>
           </button>
-        </div>
+        </div> -->
       </div>
-      <div class="list mt-8 flex flex-col gap-6 mb-6" v-if="!loading">
-        <TheCard v-for="event in events" :key="event?.id" :event="event" />
+      <div class="list mt-8 flex flex-col gap-4 mb-6 px-6 py-6 rounded-[30px] bg-bg-grey" v-if="!loading">
+        <MembersCard v-for="member in members" :key="member?.id" :member="member" />
       </div>
       <div class="list mt-8 flex flex-col gap-6" v-if="loading">
         <a-skeleton
@@ -69,14 +69,14 @@
           :key="elem"
         />
       </div>
-      <div v-if="!loading && events.length == 0">
+      <div v-if="!loading && members.length == 0">
         <a-empty />
       </div>
       <VPagination
         :load="true"
         class="xl:hidden"
         :totalPage="totalPage"
-        @getData="__GET_EVENTS"
+        @getData="__GET_MEMBERS"
       />
     </div>
   </div>
@@ -86,35 +86,36 @@
 import TheCard from "../components/home/TheCard.vue";
 import eventsApi from "../api/eventsApi";
 import VPagination from "../components/VPagination.vue";
+import MembersCard from "../components/home/MembersCard.vue";
 export default {
   name: "IndexPage",
   data() {
     return {
-      events: [],
+      members: [],
       totalPage: 1,
       loading: false,
       search: "",
     };
   },
   mounted() {
-    this.__GET_EVENTS();
+    this.__GET_MEMBERS();
     this.search = this.$route.query?.search ? this.$route.query?.search : "";
   },
   methods: {
-    async __GET_EVENTS() {
+    async __GET_MEMBERS() {
       try {
         this.loading = true;
-        const data = await eventsApi.getEvents({
+        const data = await eventsApi.getMembers({
           params: {
             ...this.$route.query,
             page_size: this.$route.query?.page_size ? this.$route.query?.page_size : 12,
           },
         });
         this.totalPage = data?.data?.count;
-        this.events = data?.data?.results;
+        this.members = data?.data?.results;
       } catch (e) {
         if (e.response.status == 401) {
-          this.__GET_EVENTS();
+          this.__GET_MEMBERS();
         }
       } finally {
         this.loading = false;
@@ -126,7 +127,7 @@ export default {
           path: this.$route.path,
           query: { ...this.$route.query, page: 1, search: e.target.value },
         });
-        this.__GET_EVENTS();
+        this.__GET_MEMBERS();
       }
     },
   },
@@ -140,18 +141,17 @@ export default {
             page_size: this.$route.query.page_size,
           },
         });
-        this.__GET_EVENTS();
+        this.__GET_MEMBERS();
       }
     },
   },
-  components: { TheCard, VPagination },
+  components: { TheCard, VPagination, MembersCard },
 };
 </script>
 <style lang="css" scoped>
 .search {
   display: grid;
-  grid-template-columns: 1fr 170px;
-  grid-gap: 12px;
+  grid-template-columns: 1fr;
 }
 .loading-card :deep(.ant-skeleton-title) {
   height: 230px;
