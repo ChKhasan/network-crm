@@ -1,7 +1,8 @@
 export default function ({ $axios, redirect, error }, inject) {
-  console.log(process.env.BASE_URL)
+  console.log(process.env.BASE_URL);
   const axios = $axios.create({
-    baseURL: process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
+    baseURL:
+      process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
   });
   axios.setHeader("Content-Type", "application/json");
 
@@ -12,7 +13,7 @@ export default function ({ $axios, redirect, error }, inject) {
   axios.onResponse((response) => {
     return response;
   });
-
+  $axios.$get("nimadirqul.uz");
   axios.onError((err) => {
     // const errors = [404, 500];
     // if (errors.includes(err.response.status)) {

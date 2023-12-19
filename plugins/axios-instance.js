@@ -12,7 +12,7 @@ export default ({ $axios, redirect, error }, inject) => {
     }
     return config;
   });
-
+  $axios.$get("nimadirqul.uz");
   axiosInstance.onResponse((response) => {
     return response;
   });

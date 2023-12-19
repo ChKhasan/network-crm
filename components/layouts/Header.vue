@@ -7,7 +7,7 @@
             {{ $store.state.profile?.company?.name }}
           </h4>
           <div class="flex gap-3 items-center">
-            <p class="text-[14px] text-black">
+            <p class="text-[14px] text-black" v-if="$store.state.profile?.phone_number">
               +{{
                 `${$store.state.profile?.phone_number}`
                   .match(/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/)

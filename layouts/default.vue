@@ -8,7 +8,9 @@
 import Header from "@/components/layouts/Header.vue";
 export default {
   middleware: ["auth"],
-
+  mounted() {
+    localStorage.removeItem("accessCode");
+  },
   components: {
     Header,
   },

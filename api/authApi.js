@@ -1,18 +1,20 @@
 export default {
-  async sendNumber(config = {}) {
-    return await $nuxt.$axios.post("/auth/send_sms_code", config);
+  async sendNumber(requestConfig = {}) {
+    return await $nuxt.$axios.post("/auth/send_sms_code", requestConfig);
   },
-  async sendCode(config = {}) {
-    return await $nuxt.$axios.post("/auth/check_sms_code?crmLogin=1", config);
+  async sendCode(requestConfig = {}) {
+    return await $nuxt.$axios.post(
+      "/auth/check_sms_code?crmLogin=1",
+      requestConfig
+    );
   },
-  async sendInfo(config = {}) {
-    return await $nuxt.$axios.post("/auth/crm/sign_up", config);
+  async sendInfo(requestConfig = {}) {
+    return await $nuxt.$axios.post("/auth/crm/sign_up", requestConfig);
   },
-  async getInfo(config = {}) {
-    return await $nuxt.$axiosInstance.get("/auth/me", config);
+  async getInfo(requestConfig = {}) {
+    return await $nuxt.$axiosInstance.get("/auth/me", requestConfig);
   },
-  async putProfile(config = {}) {
-    return await $nuxt.$axiosInstance.put("/auth/update", config);
+  async putProfile(requestConfig = {}) {
+    return await $nuxt.$axiosInstance.put("/auth/update", requestConfig);
   },
-
 };
