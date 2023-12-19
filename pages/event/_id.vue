@@ -239,7 +239,7 @@
             </div>
           </div>
           <div class="mt-4 mb-4">
-            <a-form-model-item prop="desc.ru">
+            <a-form-model-item >
               <p class="text-base font-semibold text-black mb-2">
                 OTadbir haqida qisqacha malumot
               </p>
@@ -251,7 +251,7 @@
               />
             </a-form-model-item>
           </div>
-          <a-form-model-item prop="adress" class="mt-4">
+          <a-form-model-item  class="mt-4">
             <p class="text-base font-semibold text-black mb-2">
               O’tkazilish manzili (Joy nomi / Telegram kanal / )
             </p>
@@ -330,7 +330,7 @@
         <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
           <h5 class="decor-500 text-[24px] text-black">Tashkilotchilar</h5>
           <div class="max-w-[470px] flex flex-col gap-4 mt-4">
-            <a-form-model-item class="form-item" prop="phone_number">
+            <a-form-model-item class="form-item" >
               <p class="text-base font-semibold text-black mb-3">Telefon raqami</p>
               <div class="relative w-full flex items-center">
                 <a-input
@@ -357,7 +357,7 @@
                 </svg>
               </div>
             </a-form-model-item>
-            <a-form-model-item class="form-item" prop="telegram">
+            <a-form-model-item class="form-item" >
               <p class="text-base font-semibold text-black mb-3">Telegram @nickname</p>
               <div class="relative w-full flex items-center">
                 <a-input
@@ -386,7 +386,7 @@
             </a-form-model-item>
           </div>
           <div class="mt-4">
-            <a-form-model-item class="form-item" prop="owner_info.ru">
+            <a-form-model-item class="form-item" >
               <p class="text-base font-semibold text-black mb-3">Qo‘shimcha malumot:</p>
               <quill-editor
                 style="min-height: 250px"
@@ -804,18 +804,7 @@ export default {
         title: {
           ru: [{ required: true, message: "This field is required", trigger: "change" }],
         },
-        desc: {
-          ru: [{ required: true, message: "This field is required", trigger: "change" }],
-        },
-        telegram: [
-          { required: true, message: "This field is required", trigger: "change" },
-        ],
-        phone_number: [
-          { required: true, message: "This field is required", trigger: "change" },
-        ],
-        owner_info: {
-          ru: [{ required: true, message: "This field is required", trigger: "change" }],
-        },
+
         category: [
           { required: true, message: "This field is required", trigger: "change" },
         ],
@@ -872,8 +861,10 @@ export default {
     onSubmit() {
       const data = {
         ...this.form,
-        telegram: !this.form.telegram.includes("@")
-          ? `@${this.form.telegram}`
+        telegram: this.form.telegram
+          ? !this.form.telegram.includes("@")
+            ? `@${this.form.telegram}`
+            : this.form.telegram
           : this.form.telegram,
         files: this.form.files.filter((elem) => elem.name.ru && elem.file),
         phone_number: Number(this.form.phone_number.replaceAll(" ", "").replace("+", "")),
