@@ -113,9 +113,9 @@ export default {
         this.totalPage = data?.data?.count;
         this.events = data?.data?.results;
       } catch (e) {
-        if (e.response.status == 401) {
-          this.__GET_EVENTS();
-        }
+        // if (e.response.status == 401) {
+        //   this.__GET_EVENTS();
+        // }
       } finally {
         this.loading = false;
       }

@@ -21,8 +21,23 @@
         <p class="text-[14px] text-grey-40 font-semibold">{{ member?.company_name }}</p>
       </div>
       <div class="flex flex-col gap-1">
-        <p class="text-black text-[14px]">+998 90 9909009</p>
-        <p class="text-[14px] text-[#1878F3] font-semibold">@arcsobirov</p>
+        <p class="text-black text-[14px]">
+          +{{
+            `${member?.user?.phone_number}`
+              .match(/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/)
+              .filter((item, index) => index != 0)
+              .join(" ")
+          }}
+        </p>
+        <p class="text-[14px] text-[#1878F3] font-semibold" v-if="member?.telegram">
+          <a
+            v-if="!member?.telegram.includes('http://')"
+            :href="`http://t.me/${member?.telegram.replace('@', '')}`"
+            target="_blank"
+            >{{ member?.telegram }}</a
+          >
+          <a v-else target="_blank" :href="member?.telegram">{{ member?.telegram }}</a>
+        </p>
         <p>-------</p>
       </div>
     </div>

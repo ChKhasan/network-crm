@@ -843,9 +843,6 @@ export default {
     onSubmit() {
       const data = {
         ...this.form,
-        telegram: !this.form.telegram.includes("@")
-          ? `@${this.form.telegram}`
-          : this.form.telegram,
         files: this.form.files.filter((elem) => elem.name.ru && elem.file),
         phone_number: Number(this.form.phone_number.replaceAll(" ", "").replace("+", "")),
       };
