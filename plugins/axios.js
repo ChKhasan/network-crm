@@ -13,7 +13,6 @@ export default function ({ $axios, redirect, error }, inject) {
   axios.onResponse((response) => {
     return response;
   });
-  $axios.$get("nimadirqul.uz");
   axios.onError((err) => {
     // const errors = [404, 500];
     // if (errors.includes(err.response.status)) {
