@@ -96,7 +96,7 @@
                 fill="#020105"
               />
             </svg>
-            {{event?.members_count}}</span
+            {{ event?.members_count }}</span
           >
         </div>
         <h5 class="text-[18px] decor-500 text-black">
@@ -105,7 +105,13 @@
       </div>
       <div class="flex justify-between">
         <button
-          @click="$router.push(`/event/${event?.id}`)"
+          @click="
+            $router.push(
+              $route.name.includes('index')
+                ? `/event/${event?.id}`
+                : `/association/${event?.id}`
+            )
+          "
           class="text-base font-medium text-black flex gap-[6px] items-center"
         >
           Ozgartirish<svg
@@ -126,7 +132,11 @@
           </svg>
         </button>
         <nuxt-link
-          :to="`/event/view/${event?.id}`"
+          :to="
+            $route.name.includes('index')
+              ? `/event/view/${event?.id}`
+              : `/association/view/${event?.id}`
+          "
           class="text-base font-medium text-blue flex gap-[6px] items-center"
           >Batafsil ko‘rish
           <svg

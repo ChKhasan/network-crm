@@ -89,8 +89,9 @@
       <button
         @click="onSubmit"
         class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
+        :class="{ 'pointer-events-none opacity-50': loading }"
       >
-        Saqlash
+        <span v-if="!loading">Saqlash</span> <LoaderBtn v-else />
       </button>
     </div>
 
@@ -99,45 +100,48 @@
 </template>
 <script>
 import moment from "moment";
+import LoaderBtn from "../loader-btn.vue";
 export default {
-  props: ["regions", "specialities"],
-  data() {
-    return {
-      form: {
-        phone_number: "",
-        sms_code: null,
-        company_data: {
-          name: "",
-          info: "",
-        },
-      },
-      rules: {
-        company_data: {
-          name: [{ required: true, message: "This field is required", trigger: "blur" }],
-        },
-      },
-    };
-  },
-  mounted() {
-    if (localStorage.getItem("phone"))
-      this.form.phone_number = `998${localStorage.getItem("phone")}`;
-    if (localStorage.getItem("accessCode"))
-      this.form.sms_code = localStorage.getItem("accessCode");
-  },
-  methods: {
-    onSubmit() {
-      const data = {
-        ...this.form,
-      };
-      this.$refs.ruleForm.validate((valid) => {
-        if (valid) {
-          this.$emit("sendRegister", data);
-        } else {
-          return false;
-        }
-      });
+    props: ["regions", "specialities", "loading"],
+    data() {
+        return {
+            form: {
+                phone_number: "",
+                sms_code: null,
+                company_data: {
+                    name: "",
+                    info: "",
+                },
+            },
+            rules: {
+                company_data: {
+                    name: [{ required: true, message: "This field is required", trigger: "blur" }],
+                },
+            },
+        };
     },
-  },
+    mounted() {
+        if (localStorage.getItem("phone"))
+            this.form.phone_number = `998${localStorage.getItem("phone")}`;
+        if (localStorage.getItem("accessCode"))
+            this.form.sms_code = localStorage.getItem("accessCode");
+    },
+    methods: {
+        onSubmit() {
+            const data = {
+                ...this.form,
+            };
+            this.$refs.ruleForm.validate((valid) => {
+                if (valid) {
+                    this.$emit("sendRegister", data);
+                }
+                else {
+                    return false;
+                }
+            });
+        },
+    },
+    components: { LoaderBtn }
 };
 </script>
 <style lang="css" scoped>

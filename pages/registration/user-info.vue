@@ -8,6 +8,7 @@
           @sendRegister="sendRegister"
           :regions="regions"
           :specialities="specialities"
+          :loading="loading"
         />
       </div>
     </div>
@@ -20,7 +21,9 @@ import sendNUmberApi from "@/api/authApi";
 export default {
   layout: "empty",
   data() {
-    return {};
+    return {
+      loading: false,
+    };
   },
 
   methods: {
@@ -29,13 +32,17 @@ export default {
     },
     async __SEND_INFO(form) {
       try {
+        this.loading = true;
         const data = await sendNUmberApi.sendInfo(form);
         localStorage.setItem("accessToken", data?.data?.access);
         localStorage.setItem("refreshToken", data?.data?.refresh);
         localStorage.removeItem("phone_number");
         localStorage.removeItem("accessCode");
         await this.$router.push("/");
-      } catch (e) {}
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
     },
   },
   components: { UserInfo },

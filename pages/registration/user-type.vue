@@ -4,7 +4,7 @@
   >
     <div class="2xl:container mx-auto h-full flex flex-col gap-4">
       <div class="flex justify-center xl:h-full">
-        <UserType @sendCode="sendCode" />
+        <UserType @sendCode="sendCode" :loading="loading" />
       </div>
     </div>
   </div>
@@ -16,7 +16,9 @@ import sendNUmberApi from "@/api/authApi";
 export default {
   layout: "empty",
   data() {
-    return {};
+    return {
+      loading: false,
+    };
   },
   methods: {
     sendCode(form) {
@@ -24,6 +26,7 @@ export default {
     },
     async __SEND_CODE(form) {
       try {
+        this.loading = false;
         const data = await sendNUmberApi.sendCode(form);
         if (data?.data?.code_valid) {
           this.$router.push("/registration/user-info");
@@ -39,6 +42,8 @@ export default {
           message: "Error",
           description: e.response.statusText,
         });
+      } finally {
+        this.loading = false;
       }
     },
     async __GET_USER() {

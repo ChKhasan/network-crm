@@ -91,17 +91,16 @@
               class="rounded-[8px] xl:h-11 sms-input pl-4 pr-2 py-3 h-[47px] bg-white border border-solid border-border-darik flex items-center justify-between gap-4"
               :class="{ 'border-red': smsError && form.password.length != 6 }"
             >
-              <v-otp-input
-                ref="otpInput"
-                input-classes="otp-input"
-                :num-inputs="6"
-                separator=""
-                :should-auto-focus="true"
-                placeholder="*"
-                :is-input-num="true"
-                @on-change="handleOnChange"
-                @on-complete="handleOnComplete"
+              <input
+                class="code_input"
+                type="number"
+                pattern="/^-?\d+\.?\d*$/"
+                v-model="form.sms_code"
+                onKeyPress="if(this.value.length==4) return false;"
+                placeholder="****"
+                @keyup.enter="onSubmit"
               />
+
               <div
                 class="mr-1 text-base text-black px-4 py-[6px] xl:pr-[6px] xl:leading-5 rounded-[4px] bg-bg-grey flex gap-2 items-center xl:max-h-8"
               >
@@ -112,14 +111,14 @@
                     :percent="timeProgress"
                 /></span>
                 <p class="text-base xl:text-[14px] text-black font-medium">
-                  00:{{ time >= 10 ? time : `0${time}` }}
+                  {{ formattedTime }}
                 </p>
               </div>
             </div></a-form-model-item
           >
         </div>
         <button
-          :class="{ 'opacity-50 pointer-events-none': time > 0 }"
+          :class="{ 'opacity-50 pointer-events-none': timer > 0 }"
           class="text-blue text-[15px] mt-3 xl:mt-2 xl:text-[14px]"
         >
           Qayta jonatish
@@ -159,8 +158,9 @@
           <button
             @click="onSubmit"
             class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
+            :class="{ 'pointer-events-none opacity-50': loading }"
           >
-            Kodni jo’natish
+            <span v-if="!loading">Kodni jo’natish</span> <LoaderBtn v-else />
           </button>
         </div>
       </div>
@@ -168,91 +168,87 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      other: "",
-      timeProgress: 100,
-      smsError: false,
-      time: 60,
-      form: {
-        phone_number: "999999990",
-        sms_code: "",
-      },
-      rules: {
-        phone_number: [
-          { required: true, message: "This field is required", trigger: "blur" },
-          { min: 9, message: "Length should 9", trigger: "blur" },
-        ],
-      },
-    };
-  },
-  mounted() {
-    let inputs = document.querySelectorAll(".otp-input");
-    inputs.forEach((item, index) => {
-      if (index != 0 && !inputs[index - 1].value) {
-        item.classList.add("disabledItem");
-      }
-    });
-    if (localStorage.getItem("phone"))
-      this.form.phone_number = localStorage.getItem("phone");
-    this.setInputPlaceholder();
-    setInterval(() => {
-      if (this.time > 0) {
-        this.time--;
-      }
-      if (this.timeProgress > 0) {
-        this.timeProgress -= 100 / 60;
-      }
-    }, 1000);
-  },
-  methods: {
-    setInputPlaceholder() {
-      this.$refs.otpInput.$el
-        .querySelectorAll("input")
-        .forEach((input) => (input.placeholder = "*"));
-    },
-    handleOnComplete(value) {
-      this.form.sms_code = value;
-    },
-    handleOnChange(value1) {
-      let inputs = document.querySelectorAll(".otp-input");
-      inputs.forEach((item, index) => {
-        if (index != 0 && !inputs[index - 1].value) {
-          item.classList.add("disabledItem");
-        } else {
-          item.classList.remove("disabledItem");
-        }
-      });
-      if (value1.length + 1 < inputs.length) {
-        inputs[value1.length + 1].classList.add("disabledItem");
-      }
-      this.form.sms_code = value1;
-    },
-    handleClearInput() {
-      this.$refs.otpInput.clearInput();
-    },
-    onSubmit() {
-      const data = {
-        phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
-        sms_code: this.form.sms_code,
-      };
-      localStorage.setItem("accessCode", this.form.sms_code);
+import LoaderBtn from '../loader-btn.vue';
 
-      if (this.form.sms_code.length != 6) {
-        this.smsError = true;
-      } else {
-        this.smsError = false;
-      }
-      this.$refs.ruleForm.validate((valid) => {
-        if (valid) {
-          this.$emit("sendCode", data);
-        } else {
-          return false;
-        }
-      });
+export default {
+    props: ["loading"],
+    data() {
+        return {
+            other: "",
+            timeProgress: 100,
+            smsError: false,
+            time: 60,
+            form: {
+                phone_number: "999999990",
+                sms_code: "",
+            },
+            timer: 5 * 60,
+            timerInterval: null,
+            rules: {
+                phone_number: [
+                    { required: true, message: "This field is required", trigger: "blur" },
+                    { min: 9, message: "Length should 9", trigger: "blur" },
+                ],
+            },
+        };
     },
-  },
+    computed: {
+        formattedTime() {
+            let minutes = Math.floor(this.timer / 60);
+            let seconds = this.timer % 60;
+            return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+        },
+    },
+    beforeDestroy() {
+        clearInterval(this.timerInterval);
+    },
+    mounted() {
+        this.startTimer();
+        if (localStorage.getItem("phone"))
+            this.form.phone_number = localStorage.getItem("phone");
+    },
+    methods: {
+        startTimer() {
+            this.timerInterval = setInterval(() => {
+                if (this.timer <= 0) {
+                    clearInterval(this.timerInterval);
+                    alert("Time's up!");
+                }
+                else {
+                    this.timer--;
+                    this.timeProgress -= 100 / this.timer;
+                }
+            }, 1000);
+        },
+        handleOnComplete(value) {
+            this.form.sms_code = value;
+        },
+        handleClearInput() {
+            this.$refs.otpInput.clearInput();
+        },
+        onSubmit() {
+            const data = {
+                phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
+                sms_code: this.form.sms_code,
+            };
+            localStorage.setItem("accessCode", this.form.sms_code);
+            if (this.form.sms_code.length != 6) {
+                this.smsError = true;
+            }
+            else {
+                this.smsError = false;
+            }
+            this.$refs.ruleForm.validate((valid) => {
+                if (valid) {
+                    this.$emit("sendCode", data);
+                }
+                else {
+                    return false;
+                }
+            });
+        },
+    },
+    components: { LoaderBtn }
 };
 </script>
 <style lang="css" scoped>
@@ -313,6 +309,15 @@ export default {
 }
 .required :deep(label) {
   padding-right: 10px;
+}
+.code_input {
+  letter-spacing: 20px;
+  font-size: 24px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 @media (max-width: 1200px) {
   .auth-item input {

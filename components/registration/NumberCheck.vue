@@ -41,10 +41,9 @@
     <div class="xl:pt-2">
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <a-form-model-item
-          ref="name"
           class="auth-item"
           label="Telefon raqamingizni kiriting"
-          prop="phone"
+          prop="phone_number"
         >
           <!-- <a-input v-model="form.name" /> -->
           <div
@@ -57,6 +56,7 @@
               @focus="onFocus = true"
               @blur="onFocus = false"
               v-model="form.phone_number"
+              @keyup.enter="submit"
               placeholder="__ ___ __ __"
               type="text"
             />
@@ -79,14 +79,18 @@
       <button
         @click="submit"
         class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
+        :class="{ 'pointer-events-none opacity-50': loading }"
       >
-        Kodni jo’natish
+        <span v-if="!loading">Kodni jo’natish</span> <LoaderBtn v-else />
       </button>
     </div>
   </div>
 </template>
 <script>
+import LoaderBtn from "../loader-btn.vue";
+
 export default {
+  props: ["loading"],
   data() {
     return {
       onFocus: false,
@@ -94,12 +98,16 @@ export default {
       form: {
         phone_number: "",
       },
-
       rules: {
-        name: [
+        phone_number: [
           {
             required: true,
             message: "This field is required",
+            trigger: "change",
+          },
+          {
+            min: 12,
+            message: "The length of the number should not be less than 9",
             trigger: "change",
           },
         ],
@@ -108,17 +116,21 @@ export default {
   },
   methods: {
     submit() {
-      const data = {
-        phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
-      };
-      localStorage.setItem("phone", this.form.phone_number.replaceAll(" ", ""));
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          const data = {
+            phone_number:
+              this.form.phone_number.length > 0
+                ? `998${this.form.phone_number.replaceAll(" ", "")}`
+                : undefined,
+          };
           this.$emit("checkNumber", data);
+          localStorage.setItem("phone", this.form.phone_number.replaceAll(" ", ""));
         }
       });
     },
   },
+  components: { LoaderBtn },
 };
 </script>
 <style lang="css" scoped>
@@ -139,6 +151,7 @@ export default {
   font-weight: 400;
   line-height: 150%; /* 24px */
   border-color: transparent;
+  width: 100%;
 }
 @media (max-width: 1200px) {
   .auth-item .input-block {

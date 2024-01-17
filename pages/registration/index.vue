@@ -4,7 +4,7 @@
   >
     <div class="2xl:container mx-auto h-full flex flex-col gap-4">
       <div class="flex justify-center">
-        <NumberCheck @checkNumber="__SEND_NUMBER" />
+        <NumberCheck @checkNumber="__SEND_NUMBER" :loading="loading" />
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@ export default {
       form: {
         phone_number: "",
       },
-
+      loading: false,
       rules: {
         name: [
           {
@@ -37,9 +37,13 @@ export default {
   methods: {
     async __SEND_NUMBER(form) {
       try {
+        this.loading = true;
         const data = await sendNUmberApi.sendNumber(form);
         await this.$router.push("/registration/user-type");
-      } catch (e) {}
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
     },
   },
   components: { NumberCheck },
