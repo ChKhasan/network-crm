@@ -221,8 +221,8 @@
               <a
                 class="text-base text-black underline"
                 target="_black"
-                :href="`${base_url_client}/event/join/${form?.qr_code?.uuid}`"
-                >{{ `${base_url_client}/event/join/${form?.qr_code?.uuid}` }}</a
+                :href="`${base_url_client}/community/join/${form?.qr_code?.uuid}`"
+                >{{ `${base_url_client}/community/join/${form?.qr_code?.uuid}` }}</a
               >
             </p>
             <div class="flex gap-3">
