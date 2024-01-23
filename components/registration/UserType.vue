@@ -120,6 +120,7 @@
         <button
           :class="{ 'opacity-50 pointer-events-none': timer > 0 }"
           class="text-blue text-[15px] mt-3 xl:mt-2 xl:text-[14px]"
+          @click="resent"
         >
           Qayta jonatish
         </button>
@@ -168,87 +169,100 @@
   </div>
 </template>
 <script>
-import LoaderBtn from '../loader-btn.vue';
+import LoaderBtn from "../loader-btn.vue";
+import sendNUmberApi from "@/api/authApi";
 
 export default {
-    props: ["loading"],
-    data() {
-        return {
-            other: "",
-            timeProgress: 100,
-            smsError: false,
-            time: 60,
-            form: {
-                phone_number: "999999990",
-                sms_code: "",
-            },
-            timer: 5 * 60,
-            timerInterval: null,
-            rules: {
-                phone_number: [
-                    { required: true, message: "This field is required", trigger: "blur" },
-                    { min: 9, message: "Length should 9", trigger: "blur" },
-                ],
-            },
-        };
+  props: ["loading"],
+  data() {
+    return {
+      other: "",
+      timeProgress: 100,
+      smsError: false,
+      time: 60,
+      form: {
+        phone_number: "999999990",
+        sms_code: "",
+      },
+      timer: 5 * 60,
+      timerInterval: null,
+      rules: {
+        phone_number: [
+          { required: true, message: "This field is required", trigger: "blur" },
+          { min: 9, message: "Length should 9", trigger: "blur" },
+        ],
+      },
+    };
+  },
+  computed: {
+    formattedTime() {
+      let minutes = Math.floor(this.timer / 60);
+      let seconds = this.timer % 60;
+      return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     },
-    computed: {
-        formattedTime() {
-            let minutes = Math.floor(this.timer / 60);
-            let seconds = this.timer % 60;
-            return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-        },
+  },
+  beforeDestroy() {
+    clearInterval(this.timerInterval);
+  },
+  mounted() {
+    this.startTimer();
+    if (localStorage.getItem("phone"))
+      this.form.phone_number = localStorage.getItem("phone");
+  },
+  methods: {
+    startTimer() {
+      this.timerInterval = setInterval(() => {
+        if (this.timer <= 0) {
+          clearInterval(this.timerInterval);
+          alert("Time's up!");
+        } else {
+          this.timer--;
+          this.timeProgress -= 100 / this.timer;
+        }
+      }, 1000);
     },
-    beforeDestroy() {
-        clearInterval(this.timerInterval);
+    handleOnComplete(value) {
+      this.form.sms_code = value;
     },
-    mounted() {
-        this.startTimer();
-        if (localStorage.getItem("phone"))
-            this.form.phone_number = localStorage.getItem("phone");
+    handleClearInput() {
+      this.$refs.otpInput.clearInput();
     },
-    methods: {
-        startTimer() {
-            this.timerInterval = setInterval(() => {
-                if (this.timer <= 0) {
-                    clearInterval(this.timerInterval);
-                    alert("Time's up!");
-                }
-                else {
-                    this.timer--;
-                    this.timeProgress -= 100 / this.timer;
-                }
-            }, 1000);
-        },
-        handleOnComplete(value) {
-            this.form.sms_code = value;
-        },
-        handleClearInput() {
-            this.$refs.otpInput.clearInput();
-        },
-        onSubmit() {
-            const data = {
-                phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
-                sms_code: this.form.sms_code,
-            };
-            localStorage.setItem("accessCode", this.form.sms_code);
-            if (this.form.sms_code.length != 6) {
-                this.smsError = true;
-            }
-            else {
-                this.smsError = false;
-            }
-            this.$refs.ruleForm.validate((valid) => {
-                if (valid) {
-                    this.$emit("sendCode", data);
-                }
-                else {
-                    return false;
-                }
-            });
-        },
+    resent() {
+      this.__SEND_NUMBER({
+        phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
+      });
     },
-    components: { LoaderBtn }
+    async __SEND_NUMBER(form) {
+      try {
+        this.loading = true;
+        const data = await sendNUmberApi.sendNumber(form);
+        await this.$router.push("/registration/user-type");
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
+    onSubmit() {
+      const data = {
+        phone_number: `998${this.form.phone_number.replaceAll(" ", "")}`,
+        sms_code: this.form.sms_code,
+      };
+      localStorage.setItem("accessCode", this.form.sms_code);
+      if (this.form.sms_code.length != 6) {
+        this.smsError = true;
+      } else {
+        this.smsError = false;
+      }
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          this.$emit("sendCode", data);
+        } else {
+          return false;
+        }
+      });
+    },
+  },
+  components: { LoaderBtn },
 };
 </script>
 <style lang="css" scoped>

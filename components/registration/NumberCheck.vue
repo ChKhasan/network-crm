@@ -116,6 +116,7 @@ export default {
   },
   methods: {
     submit() {
+      console.log("submit");
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           const data = {

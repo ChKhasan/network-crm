@@ -163,8 +163,8 @@
               <a
                 class="text-base text-black underline"
                 target="_black"
-                :href="`${base_url_client}/event/join/${form?.qr_code?.uuid}`"
-                >{{ `${base_url_client}/event/join/${form?.qr_code?.uuid}` }}</a
+                :href="`${base_url_client}/community/join/${form?.qr_code?.uuid}`"
+                >{{ `${base_url_client}/community/join/${form?.qr_code?.uuid}` }}</a
               >
             </p>
             <a
@@ -738,7 +738,7 @@ export default {
   },
   async mounted() {
     this.__GET_CATEGORIES();
-    await this.__GET_EVENT();
+    await this.__GET_COMMUNITY();
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   },
@@ -751,7 +751,7 @@ export default {
         phone_number: Number(this.form.phone_number.replaceAll(" ", "").replace("+", "")),
         public: Boolean(this.form.public),
       };
-      this.$refs.ruleForm.validate((valid) => valid && this.__PUT_EVENTS(data));
+      this.$refs.ruleForm.validate((valid) => valid && this.__PUT_COMMUNITIES(data));
     },
     async __GET_CATEGORIES(data) {
       try {
@@ -765,7 +765,7 @@ export default {
         });
       }
     },
-    async __PUT_EVENTS(form) {
+    async __PUT_COMMUNITIES(form) {
       try {
         this.loader = true;
         const data = await communitiesApi.putCommunities({
@@ -787,7 +787,7 @@ export default {
         this.loader = false;
       }
     },
-    async __GET_EVENT(form) {
+    async __GET_COMMUNITY(form) {
       try {
         const data = await communitiesApi.getCommunityById({ id: this.$route.params.id });
         const { id, created_at, updated_at, ...rest } = data?.data;
@@ -831,9 +831,9 @@ export default {
       this.previewVisible = true;
     },
     handleRemove() {
-      this.deleteEventImage();
+      this.deleteCommunityImage();
     },
-    async deleteEventImage() {
+    async deleteCommunityImage() {
       try {
         const data = await communitiesApi.deleteCommunityImage({
           id: this.$route.params.id,
@@ -848,7 +848,7 @@ export default {
       }
     },
 
-    async deleteEventFiles(id) {
+    async deleteCommunityFiles(id) {
       try {
         const data = await communitiesApi.deleteCommunityFiles({
           payload: { file_id: id },
@@ -894,8 +894,8 @@ export default {
     async deleteFile(indexId) {
       let obj = await this.form.files.find((item) => item.indexId == indexId);
       if (obj?.id) {
-        await this.deleteEventFiles(obj.id);
-        this.__GET_EVENT();
+        await this.deleteCommunityFiles(obj.id);
+        this.__GET_COMMUNITY();
       } else {
         this.form.files = this.form.files.filter((item) => item.indexId != indexId);
       }

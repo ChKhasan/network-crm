@@ -221,8 +221,8 @@
               <a
                 class="text-base text-black underline"
                 target="_black"
-                :href="`${base_url_client}/event/join/${form?.qr_code?.uuid}`"
-                >{{ `${base_url_client}/event/join/${form?.qr_code?.uuid}` }}</a
+                :href="`${base_url_client}/community/join/${form?.qr_code?.uuid}`"
+                >{{ `${base_url_client}/community/join/${form?.qr_code?.uuid}` }}</a
               >
             </p>
             <div class="flex gap-3">
@@ -717,7 +717,7 @@
             </svg>
           </button>
           <button
-            @click="deleteEvent"
+            @click="deleteCommunity"
             class="h-12 px-5 rounded-xl w-full bg-[#F00] flex items-center text-[14px] font-semibold text-white justify-center gap-2"
           >
             Xa, ochirib yuborish
@@ -979,7 +979,7 @@ export default {
     this.__GET_CATEGORIES();
     this.__GET_MEMBERS_();
     this.__GET_MEMBERS();
-    await this.__GET_EVENT();
+    await this.__GET_COMMUNITY();
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   },
@@ -1013,7 +1013,7 @@ export default {
       try {
         const data = await communitiesApi.getMembers({
           params: {
-            event: this.$route.params.id,
+            community: this.$route.params.id,
             page_size: 10,
           },
         });
@@ -1031,7 +1031,7 @@ export default {
         this.loaderSize = true;
         const data = await communitiesApi.getMembers({
           params: {
-            event: this.$route.params.id,
+            community: this.$route.params.id,
             page_size: this.members_size,
             ...params,
           },
@@ -1047,7 +1047,7 @@ export default {
         this.loaderSize = false;
       }
     },
-    async __GET_EVENT(form) {
+    async __GET_COMMUNITY(form) {
       try {
         const data = await communitiesApi.getCommunityById({ id: this.$route.params.id });
         const { id, updated_at, ...rest } = data?.data;
@@ -1136,10 +1136,10 @@ export default {
       this.form.start_date = e[0];
       this.form.end_date = e[1];
     },
-    deleteEvent() {
-      this.__DELETE_EVENT();
+    deleteCommunity() {
+      this.__DELETE_COMMUNITY();
     },
-    async __DELETE_EVENT() {
+    async __DELETE_COMMUNITY() {
       try {
         await communitiesApi.deleteCommunity({ id: this.$route.params.id });
         this.$notification["success"]({
