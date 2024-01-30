@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="create pt-[22px] pb-[120px] max-w-[818px] mx-auto">
+  <div class="create pt-[22px] pb-[120px] max-w-[818px] mx-auto px-4">
     <div class="mb-[42px]">
       <button
         @click="$router.go(-1)"
@@ -22,9 +22,9 @@
         Uyushmalar royxatiga qaytish
       </button>
     </div>
-    <div class="flex justify-between">
-      <h4 class="text-[24px] decor-500 text-black">Yangi uyushma qo‘shish</h4>
-      <div class="flex gap-3">
+    <div class="flex justify-between sm:flex-col sm:gap-4">
+      <h4 class="text-[24px] decor-500 text-black sm:text-[20px]">Yangi uyushma qo‘shish</h4>
+      <div class="flex gap-3 sm:justify-end">
         <button
           @click="visibleDelete = true"
           class="h-12 w-12 rounded-xl bg-apple-grey flex items-center justify-center text-[14px] font-semibold text-black gap-2"
@@ -116,9 +116,9 @@
               ></a-spin>
             </span>
             <div class="flex w-full h-full relative items-center justify-center" v-else>
-              <div class="rounded-3xl flex gap-[9px] absolute left-6 bottom-6">
+              <div class="rounded-3xl flex gap-[9px] absolute left-3 bottom-3">
                 <p
-                  class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white text-[#00A96C] font-semibold text-[14px]"
+                  class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white sm:text-[12px] sm:px-3 sm:py-[6px] text-[#00A96C] font-semibold text-[14px]"
                 >
                   <svg
                     width="12"
@@ -139,12 +139,12 @@
                   Aktiv
                 </p>
                 <p
-                  class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white font-semibold text-[14px]"
+                  class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white sm:text-[12px] sm:px-3 sm:py-[6px] font-semibold text-[14px]"
                 >
                   {{ moment(form.created_at).format("DD MMM YYYY, HH:mm") }}
                 </p>
                 <p
-                  class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white font-semibold text-[14px]"
+                  class="flex gap-2 rounded-[500px] px-5 py-[10px] bg-white sm:text-[12px] sm:px-3 sm:py-[6px] font-semibold text-[14px]"
                 >
                   <svg
                     width="21"
@@ -204,7 +204,7 @@
           </div>
         </div>
         <div
-          class="qr-code px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
+          class="qr-code sm:px-4 sm:py-4 sm:rounded-[16px] px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
         >
           <div class="image w-[100px] h-[100px]">
             <!-- <img class="w-full h-full" src="@/assets/images/image 2.png" alt="" /> -->
@@ -225,7 +225,7 @@
                 >{{ `${base_url_client}/community/join/${form?.qr_code?.uuid}` }}</a
               >
             </p>
-            <div class="flex gap-3">
+            <div class="flex gap-3 sm:flex-col">
               <a
                 :href="form?.qr_code?.qr_code"
                 download=""
@@ -268,8 +268,10 @@
             </div>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Uyushma haqida</h5>
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Uyushma haqida</h5>
           <!-- <div class="mt-4 flex flex-col gap-4">
             <a-form-model-item prop="title.ru">
               <p class="text-base font-bold text-black mb-2">Uyushma nomi</p>
@@ -300,14 +302,16 @@
           </div>
         </div>
 
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
           <div class="flex justify-between">
-            <h5 class="decor-500 text-[24px] text-black">
+            <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">
               Ishtirokchilar ({{ members?.length }})
             </h5>
             <button
               @click="visibleMembers = true"
-              class="py-[10px] px-5 text-[#3C4BDC] rounded-[500px] bg-white flex gap-1 font-medium"
+              class="py-[10px] px-5 text-[#3C4BDC] rounded-[500px] bg-white flex gap-1 font-medium sm:py-[6px] sm:px-2 sm:text-[14px] sm:hidden"
               :class="{ 'pointer-events-none opacity-50': members_total <= 10 }"
             >
               Barchasini ko‘rish
@@ -325,7 +329,10 @@
               </svg>
             </button>
           </div>
-          <div class="mt-4 mx-auto grid grid-cols-2 gap-4" v-if="members.length > 0">
+          <div
+            class="mt-4 mx-auto grid grid-cols-2 gap-4 sm:grid-cols-1"
+            v-if="members.length > 0"
+          >
             <MembersCard
               v-for="(member, index) in members"
               :key="index"
@@ -335,10 +342,35 @@
           <div class="flex justify-center mt-6" v-else>
             <a-empty />
           </div>
+          <div class="sm:flex hidden justify-center">
+            <button
+              @click="visibleMembers = true"
+              class="py-[10px] px-5 text-[#3C4BDC] mt-4 rounded-[500px] bg-white gap-1 font-medium hidden sm:flex "
+              :class="{ 'pointer-events-none opacity-50': members_total <= 10 }"
+            >
+              Barchasini ko‘rish
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.8542 2.66406C9.43999 2.66406 9.1042 2.99985 9.1042 3.41406C9.1042 3.82828 9.43999 4.16406 9.8542 4.16406V2.66406ZM16.5875 3.41406H17.3375C17.3375 2.99985 17.0018 2.66406 16.5875 2.66406V3.41406ZM15.8375 10.1466C15.8375 10.5608 16.1733 10.8966 16.5875 10.8966C17.0018 10.8966 17.3375 10.5608 17.3375 10.1466H15.8375ZM8.2114 10.7287C7.91849 11.0216 7.91847 11.4965 8.21135 11.7894C8.50422 12.0823 8.9791 12.0823 9.27201 11.7894L8.2114 10.7287ZM17.1078 3.95442C17.4007 3.66154 17.4008 3.18667 17.1079 2.89376C16.815 2.60085 16.3401 2.60083 16.0472 2.8937L17.1078 3.95442ZM7.9867 6.8724C8.40092 6.8724 8.7367 6.53661 8.7367 6.1224C8.7367 5.70818 8.40092 5.3724 7.9867 5.3724V6.8724ZM14.6284 12.0132C14.6284 11.599 14.2926 11.2632 13.8784 11.2632C13.4642 11.2632 13.1284 11.599 13.1284 12.0132H14.6284ZM9.8542 4.16406H16.5875V2.66406H9.8542V4.16406ZM15.8375 3.41406V10.1466H17.3375V3.41406H15.8375ZM9.27201 11.7894L17.1078 3.95442L16.0472 2.8937L8.2114 10.7287L9.27201 11.7894ZM7.9867 5.3724H6.26837V6.8724H7.9867V5.3724ZM6.26837 5.3724C4.63416 5.3724 3.3092 6.69735 3.3092 8.33156H4.8092C4.8092 7.52578 5.46258 6.8724 6.26837 6.8724V5.3724ZM3.3092 8.33156V13.7324H4.8092V8.33156H3.3092ZM3.3092 13.7324C3.3092 15.3666 4.63416 16.6916 6.26837 16.6916V15.1916C5.46258 15.1916 4.8092 14.5382 4.8092 13.7324H3.3092ZM6.26837 16.6916H11.6692V15.1916H6.26837V16.6916ZM11.6692 16.6916C13.3034 16.6916 14.6284 15.3666 14.6284 13.7324H13.1284C13.1284 14.5382 12.475 15.1916 11.6692 15.1916V16.6916ZM14.6284 13.7324V12.0132H13.1284V13.7324H14.6284Z"
+                  fill="#3C4BDC"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Ijtimoiy tarmoqlar</h5>
-          <div class="w-full grid grid-cols-2 gap-4 mt-4">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">
+            Ijtimoiy tarmoqlar
+          </h5>
+          <div class="w-full grid grid-cols-2 gap-4 mt-4 sm:grid-cols-1">
             <a-form-model-item class="form-item">
               <p class="text-base font-semibold text-black mb-3">
                 Chat uchun telegram gruppa (agar mavjud bo‘lsa)
@@ -459,8 +491,10 @@
             </a-form-model-item>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Tashkilotchilar</h5>
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Tashkilotchilar</h5>
           <div class="max-w-[470px] flex flex-col gap-4 mt-4">
             <a-form-model-item class="form-item" prop="phone_number">
               <p class="text-base font-semibold text-black mb-3">Telefon raqami</p>
@@ -533,8 +567,12 @@
             </a-form-model-item>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Media materiallar</h5>
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">
+            Media materiallar
+          </h5>
           <div class="mt-4 flex flex-col gap-4">
             <div
               v-show="form.files.length > 0"
@@ -685,10 +723,10 @@
     >
       <div>
         <div class="pb-6 border-[0] border-b border-solid border-grey-8">
-          <h4 class="decor-500 text-[24px] text-black">Spiker qo’shish</h4>
+          <h4 class="decor-500 text-[24px] text-black sm:text-[18px]">Spiker qo’shish</h4>
         </div>
         <div class="flex flex-col items-center gap-2 mt-6">
-          <h4 class="text-[24px] decor-500 text-black max-w-[363px] text-center">
+          <h4 class="text-[24px] decor-500 text-black sm:text-[20px] max-w-[363px] text-center">
             Uyushmani ochirishga aminmisiz?
           </h4>
           <p class="text-base text-grey-80">Uyushmani qaytarib bolmaydi</p>
@@ -750,7 +788,7 @@
     >
       <div>
         <div class="pb-6 border-[0] border-b border-solid border-grey-8">
-          <h4 class="decor-500 text-[24px] text-black">
+          <h4 class="decor-500 text-[24px] text-black sm:text-[18px]">
             Ishtirokchilar ({{ members_total }})
           </h4>
         </div>
@@ -1288,5 +1326,33 @@ export default {
 :deep(.ant-calendar-range-picker-separator) {
   display: inline-flex;
   align-items: center;
+}
+@media (max-width: 576px) {
+  .banner-upload :deep(.ant-upload) {
+    border-radius: 24px;
+    height: 214px;
+  }
+  .banner-image {
+    border-radius: 24px;
+    height: 214px;
+  }
+  .qr-code {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 16px;
+    align-items: center;
+  }
+  :deep(.ql-editor) {
+    min-height: 180px;
+  }
+  :deep(.ql-container) {
+    min-height: 180px;
+  }
+  :deep(.ant-upload) {
+    width: 100%;
+  }
+  .file-upload-item {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

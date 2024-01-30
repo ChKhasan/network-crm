@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="create pt-[120px] pb-[120px] max-w-[818px] mx-auto">
-    <div class="flex justify-between">
-      <h4 class="text-[24px] decor-500 text-black">Yangi Uyushma qo‘shish</h4>
-      <div class="flex gap-3">
+  <div class="create pt-[120px] sm:pt-[60px] pb-[120px] max-w-[818px] mx-auto px-4">
+    <div class="flex justify-between sm:flex-col sm:gap-4">
+      <h4 class="text-[24px] decor-500 text-black sm:text-[20px]">Yangi Uyushma qo‘shish</h4>
+      <div class="flex gap-3 sm:justify-end">
         <button
           @click="$router.go(-1)"
           class="h-12 px-5 rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold text-black gap-2"
@@ -147,7 +147,7 @@
           </div>
         </div>
         <div
-          class="qr-code px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
+          class="qr-code sm:px-4 sm:py-4 px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
         >
           <div class="image w-[100px] h-[100px]">
             <img class="w-full h-full" src="@/assets/images/image 2.png" alt="" />
@@ -183,8 +183,8 @@
             </a>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Uyushma haqida</h5>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Uyushma haqida</h5>
           <div class="mt-4 flex flex-col gap-4">
             <a-form-model-item prop="title.ru">
               <p class="text-base font-semibold text-black mb-2">Uyushma nomi</p>
@@ -195,7 +195,7 @@
                 class="border w-full border-solid border-border-darik min-h-[54px] bg-white rounded-lg px-4 text-base"
               />
             </a-form-model-item>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4 sm:grid-cols-1">
               <a-form-model-item ref="name" class="form-item" prop="category">
                 <p class="text-base font-semibold text-black mb-2">Uyushma yo‘nalishi</p>
                 <a-select
@@ -251,11 +251,11 @@
           </div>
         </div>
 
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Ijtimoiy tarmoqlar</h5>
-          <div class="w-full grid grid-cols-2 gap-4 mt-4">
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Ijtimoiy tarmoqlar</h5>
+          <div class="w-full grid grid-cols-2 gap-4 mt-4 sm:grid-cols-1">
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3">
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">
                 Chat uchun telegram gruppa (agar mavjud bo‘lsa)
               </p>
               <div class="relative w-full flex items-center">
@@ -289,7 +289,7 @@
               </div>
             </a-form-model-item>
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3">
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">
                 Uyushma Telegram sahifasi
               </p>
               <div class="relative w-full flex items-center">
@@ -318,7 +318,7 @@
               </div>
             </a-form-model-item>
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3">Instagram sahifasi</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Instagram sahifasi</p>
               <div class="relative w-full flex items-center">
                 <a-input
                   class="w-full min-h-[50px] rounded-[8px]"
@@ -346,7 +346,7 @@
               </div>
             </a-form-model-item>
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3">Facebook sahifasi</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Facebook sahifasi</p>
               <div class="relative w-full flex items-center">
                 <a-input
                   class="w-full min-h-[50px] rounded-[8px]"
@@ -375,11 +375,11 @@
           </div>
         </div>
 
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Aloqa uchun:</h5>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Aloqa uchun:</h5>
           <div class="max-w-[470px] flex flex-col gap-4 mt-4">
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3">Telefon raqami</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Telefon raqami</p>
               <div class="relative w-full flex items-center">
                 <a-input
                   class="w-full min-h-[50px] rounded-[8px]"
@@ -406,7 +406,7 @@
               </div>
             </a-form-model-item>
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3">Telegram @nickname</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Telegram @nickname</p>
               <div class="relative w-full flex items-center">
                 <a-input
                   class="w-full min-h-[50px] rounded-[8px]"
@@ -435,7 +435,7 @@
           </div>
           <div class="mt-4">
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3">Qo‘shimcha malumot:</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Qo‘shimcha malumot:</p>
               <quill-editor
                 style="min-height: 250px"
                 :options="editorOption"
@@ -445,8 +445,8 @@
             </a-form-model-item>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Media materiallar</h5>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Media materiallar</h5>
           <div class="px-[28px] py-[28px] rounded-xl bg-white mt-4 flex flex-col gap-4">
             <div
               v-show="form.files.length > 0"
@@ -454,7 +454,160 @@
               v-for="(item, index) in form.files"
               :key="index"
             >
-              <div>
+            <div>
+                <a-upload
+                  class="file-upload"
+                  :disabled="!!item.file"
+                  :action="`${base_url}/upload_image`"
+                  @change="($event) => handleChangeFile($event, item.indexId)"
+                  :headers="headers"
+                  @preview="handlePreview"
+                >
+                  <div
+                    class="relative w-[267px] h-[50px] border rounded-lg border-dashed border-[#3C4BDC] flex items-center justify-center bg-white sm:w-full"
+                  >
+                    <div>
+                      <p class="text-base text-black">
+                        {{ item.file ? "Faylni yuklangan" : `Faylni yuklang` }}
+                      </p>
+                    </div>
+                    <svg
+                      v-if="!!item.file"
+                      class="absolute right-4"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        opacity="0.4"
+                        d="M4.88379 27L4.88379 9C4.88379 5.68629 7.512 3 10.7541 3L19.5595 3L31.3 15V27C31.3 30.3137 28.6718 33 25.4297 33H10.7541C7.512 33 4.88379 30.3137 4.88379 27Z"
+                        fill="#1878F3"
+                      />
+                      <path
+                        d="M19.5596 9L19.5596 3L31.3001 15L25.4298 15C22.1878 15 19.5596 12.3137 19.5596 9Z"
+                        fill="#1878F3"
+                      />
+                      <path
+                        d="M15.157 26.6085V18.3915C15.157 17.5882 16.0563 17.1128 16.7201 17.5651L22.7496 21.6736C23.3321 22.0705 23.3321 22.9295 22.7496 23.3264L16.7201 27.4349C16.0563 27.8872 15.157 27.4118 15.157 26.6085Z"
+                        fill="#1878F3"
+                      />
+                    </svg>
+
+                    <svg
+                      v-else
+                      class="absolute right-4"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        opacity="0.4"
+                        d="M18.3694 14.1667V8.33333C18.3694 6.49238 16.9093 5 15.1081 5H12.9339C12.2283 5 11.5417 4.76607 10.9772 4.33333L9.45526 3.16667C8.89075 2.73393 8.20414 2.5 7.4985 2.5H5.32433C3.52318 2.5 2.06306 3.99238 2.06306 5.83333V14.1667C2.06306 16.0076 3.52318 17.5 5.32433 17.5H15.1081C16.9093 17.5 18.3694 16.0076 18.3694 14.1667Z"
+                        fill="#3C4BDC"
+                      />
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M9.60473 9.85661C9.56669 9.88584 9.53019 9.91815 9.49557 9.95353L8.20266 11.275C7.96386 11.5191 7.57668 11.5191 7.33788 11.275C7.09908 11.0309 7.09908 10.6352 7.33788 10.3911L8.6308 9.06965C9.5064 8.1747 10.926 8.1747 11.8016 9.06965L13.0945 10.3911C13.3333 10.6352 13.3333 11.0309 13.0945 11.275C12.8557 11.5191 12.4686 11.5191 12.2298 11.275L10.9369 9.95353C10.9022 9.91815 10.8657 9.88584 10.8277 9.85661V13.3331C10.8277 13.6783 10.5539 13.9581 10.2162 13.9581C9.8785 13.9581 9.60473 13.6783 9.60473 13.3331V9.85661Z"
+                        fill="#3C4BDC"
+                      />
+                    </svg>
+                  </div>
+                </a-upload>
+              </div>
+              <span class="w-full sm:hidden">
+              <a-form-model-item class="w-full sm:hidden">
+                <input
+                  placeholder="File nomini kiriting"
+                  class="border w-full border-solid border-border-darik min-h-[50px] bg-white rounded-lg px-4 sm:hidden"
+                  type="text"
+                  v-model="item.name.ru"
+                />
+              </a-form-model-item>
+              </span>
+              <button class="sm:hidden" @click="deleteFile(item.indexId)">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g opacity="0.4">
+                    <path
+                      d="M11.7196 18.9582H8.30521C6.09607 18.9582 4.30521 17.1673 4.30521 14.9582V4.7915H15.7196V14.9582C15.7196 17.1673 13.9288 18.9582 11.7196 18.9582Z"
+                      fill="#FF0000"
+                    />
+                  </g>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M11.643 8.33301C11.9808 8.33301 12.2545 8.61283 12.2545 8.95801L12.2545 13.958C12.2545 14.3032 11.9808 14.583 11.643 14.583C11.3053 14.583 11.0316 14.3032 11.0316 13.958L11.0316 8.95801C11.0316 8.61283 11.3053 8.33301 11.643 8.33301Z"
+                    fill="#FF0000"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8.38178 8.33301C8.7195 8.33301 8.99327 8.61283 8.99327 8.95801L8.99327 13.958C8.99327 14.3032 8.7195 14.583 8.38178 14.583C8.04407 14.583 7.77029 14.3032 7.77029 13.958L7.77029 8.95801C7.77029 8.61283 8.04407 8.33301 8.38178 8.33301Z"
+                    fill="#FF0000"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.38891 2.68698C7.80474 2.04944 8.5048 1.6665 9.25446 1.6665H10.7703C11.52 1.6665 12.2201 2.04944 12.6359 2.68698L13.6009 4.1665H17.3502C17.688 4.1665 17.9617 4.44633 17.9617 4.7915C17.9617 5.13668 17.688 5.4165 17.3502 5.4165H2.67457C2.33685 5.4165 2.06308 5.13668 2.06308 4.7915C2.06308 4.44633 2.33685 4.1665 2.67457 4.1665H6.42389L7.38891 2.68698Z"
+                    fill="#FF0000"
+                  />
+                </svg>
+              </button>
+              <div class="hidden sm:flex gap-2">
+                <a-form-model-item class="w-full">
+                <input
+                  placeholder="File nomini kiriting"
+                  class="border w-full border-solid border-border-darik min-h-[50px] bg-white rounded-lg px-4"
+                  type="text"
+                  v-model="item.name.ru"
+                />
+              </a-form-model-item>
+              <button @click="deleteFile(item.indexId)">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g opacity="0.4">
+                    <path
+                      d="M11.7196 18.9582H8.30521C6.09607 18.9582 4.30521 17.1673 4.30521 14.9582V4.7915H15.7196V14.9582C15.7196 17.1673 13.9288 18.9582 11.7196 18.9582Z"
+                      fill="#FF0000"
+                    />
+                  </g>
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M11.643 8.33301C11.9808 8.33301 12.2545 8.61283 12.2545 8.95801L12.2545 13.958C12.2545 14.3032 11.9808 14.583 11.643 14.583C11.3053 14.583 11.0316 14.3032 11.0316 13.958L11.0316 8.95801C11.0316 8.61283 11.3053 8.33301 11.643 8.33301Z"
+                    fill="#FF0000"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M8.38178 8.33301C8.7195 8.33301 8.99327 8.61283 8.99327 8.95801L8.99327 13.958C8.99327 14.3032 8.7195 14.583 8.38178 14.583C8.04407 14.583 7.77029 14.3032 7.77029 13.958L7.77029 8.95801C7.77029 8.61283 8.04407 8.33301 8.38178 8.33301Z"
+                    fill="#FF0000"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.38891 2.68698C7.80474 2.04944 8.5048 1.6665 9.25446 1.6665H10.7703C11.52 1.6665 12.2201 2.04944 12.6359 2.68698L13.6009 4.1665H17.3502C17.688 4.1665 17.9617 4.44633 17.9617 4.7915C17.9617 5.13668 17.688 5.4165 17.3502 5.4165H2.67457C2.33685 5.4165 2.06308 5.13668 2.06308 4.7915C2.06308 4.44633 2.33685 4.1665 2.67457 4.1665H6.42389L7.38891 2.68698Z"
+                    fill="#FF0000"
+                  />
+                </svg>
+              </button>
+              </div>
+              <!-- <div>
                 <a-upload
                   class="file-upload"
                   :disabled="!!item.file"
@@ -560,7 +713,7 @@
                     fill="#FF0000"
                   />
                 </svg>
-              </button>
+              </button> -->
             </div>
             <a-empty v-show="form.files.length == 0" />
           </div>
@@ -596,7 +749,7 @@
     <a-modal v-model="visible" centered @ok="() => (modal2Visible = false)" :width="524">
       <div>
         <div class="pb-6 border-[0] border-b border-solid border-grey-8">
-          <h4 class="decor-500 text-[24px] text-black">Spiker qo’shish</h4>
+          <h4 class="decor-500 text-[24px] text-black sm:text-[18px]">Spiker qo’shish</h4>
         </div>
         <div class="flex justify-center items-center gap-4 mt-6">
           <a-upload
@@ -1169,5 +1322,33 @@ export default {
 :deep(.ant-calendar-range-picker-separator) {
   display: inline-flex;
   align-items: center;
+}
+@media (max-width: 576px) {
+  .banner-upload :deep(.ant-upload) {
+    border-radius: 24px;
+    height: 214px;
+  }
+  .banner-image {
+    border-radius: 24px;
+    height: 214px;
+  }
+  .qr-code {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 16px;
+    align-items: center;
+  }
+  :deep(.ql-editor) {
+    min-height: 180px;
+  }
+  :deep(.ql-container) {
+    min-height: 180px;
+  }
+  :deep(.ant-upload) {
+    width: 100%;
+  }
+  .file-upload-item {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

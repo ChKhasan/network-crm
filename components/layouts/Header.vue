@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="header bg-bg-grey">
-    <div class="max-w-[818px] mx-auto 2xl:px-4 pt-10 flex flex-col gap-9 pb-6">
+    <div class="max-w-[818px] mx-auto px-4 pt-10 flex flex-col gap-9 pb-6">
       <div class="flex justify-between">
         <div>
-          <h4 class="text-[24px] text-black decor-500">
+          <h4 class="text-[24px] text-black decor-500 sm:text-[20px]">
             {{ $store.state.profile?.company?.name }}
           </h4>
-          <div class="flex gap-3 items-center">
+          <div class="flex gap-3 items-center sm:hidden">
             <p class="text-[14px] text-black" v-if="$store.state.profile?.phone_number">
               +{{
                 `${$store.state.profile?.phone_number}`
@@ -19,6 +19,23 @@
             <p class="text-[14px] text-grey-64">Toshkent shahri</p>
             <span class="flex h-5 w-[1px] bg-grey-light"></span>
             <p class="text-[14px] text-grey-64">{{ $store.state.profile?.full_name }}</p>
+          </div>
+          <div class="gap-3 items-start mt-1 flex-col hidden sm:flex">
+            <p class="text-[14px] text-black" v-if="$store.state.profile?.phone_number">
+              +{{
+                `${$store.state.profile?.phone_number}`
+                  .match(/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/)
+                  .filter((item, index) => index != 0)
+                  .join(" ")
+              }}
+            </p>
+            <div class="flex gap-3 items-center">
+              <p class="text-[14px] text-grey-64">Toshkent shahri</p>
+              <span class="flex h-5 w-[1px] bg-grey-light"></span>
+              <p class="text-[14px] text-grey-64">
+                {{ $store.state.profile?.full_name }}
+              </p>
+            </div>
           </div>
         </div>
         <div class="flex gap-3">
@@ -42,9 +59,9 @@
           </button>
           <button
             @click="logout"
-            class="flex px-6 h-12 items-center justify-center rounded-xl bg-white text-black text-base gap-2"
+            class="flex px-6 h-12 sm:px-0 sm:w-12 items-center justify-center rounded-xl bg-white text-black text-base gap-2"
           >
-            Выйти<svg
+            <span class="sm:hidden">Выйти</span><svg
               width="21"
               height="18"
               viewBox="0 0 21 18"
@@ -74,10 +91,10 @@
           </button>
         </div>
       </div>
-      <div class="flex gap-4 tab">
+      <div class="flex gap-4 tab sm:gap-2 sm:overflow-x-scroll tab-list">
         <button
           @click="$router.push('/')"
-          class="text-[14px] flex items-center gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
+          class="text-[14px] flex items-center  whitespace-nowrap gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
           :class="{ active: $route.name == 'index' }"
         >
           <svg
@@ -117,7 +134,7 @@
         </button>
         <button
           @click="$router.push('/associations')"
-          class="text-[14px] flex items-center gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
+          class="text-[14px] flex items-center  whitespace-nowrap gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
           :class="{ active: $route.name == 'associations' }"
         >
           <svg
@@ -144,7 +161,7 @@
         <button
           @click="$router.push('/members')"
           :class="{ active: $route.name == 'members' }"
-          class="text-[14px] flex items-center gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
+          class="text-[14px] flex items-center  whitespace-nowrap gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +193,7 @@
           >Ishtirokchilar
         </button>
         <button
-          class="text-[14px] flex items-center gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
+          class="text-[14px] flex items-center  whitespace-nowrap gap-2 h-12 px-4 rounded-xl bg-white font-bold border-[2px] border-solid border-transparent"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -218,5 +235,8 @@ export default {
 .tab .active {
   border-color: #3c4bdc;
   box-shadow: 0px 4px 15px 0px rgba(92, 70, 229, 0.2);
+}
+.tab-list::-webkit-scrollbar {
+  display: none;
 }
 </style>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="create pt-[22px] pb-[120px] max-w-[818px] mx-auto">
+  <div class="create pt-[22px] pb-[120px] max-w-[818px] mx-auto px-4">
     <div class="mb-[42px]">
       <button
         @click="$router.push('/')"
@@ -22,9 +22,9 @@
         Tadbirlar royxatiga qaytish
       </button>
     </div>
-    <div class="flex justify-between">
-      <h4 class="text-[24px] decor-500 text-black">Yangi tadbir qo‘shish</h4>
-      <div class="flex gap-3">
+    <div class="flex justify-between sm:flex-col sm:gap-4">
+      <h4 class="text-[24px] decor-500 text-black sm:text-[20px]">Yangi tadbir qo‘shish</h4>
+      <div class="flex gap-3 sm:justify-end">
         <button
           @click="visibleDelete = true"
           class="h-12 w-12 rounded-xl bg-apple-grey flex items-center justify-center text-[14px] font-semibold text-black gap-2"
@@ -204,7 +204,7 @@
           </div>
         </div>
         <div
-          class="qr-code px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
+          class="qr-code sm:px-4 sm:py-4 sm:rounded-[16px] px-6 py-6 rounded-[30px] border-[2px] border-solid border-bg-grey"
         >
           <div class="image w-[100px] h-[100px]">
             <!-- <img class="w-full h-full" src="@/assets/images/image 2.png" alt="" /> -->
@@ -249,8 +249,8 @@
             </a>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Tadbir haqida</h5>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Tadbir haqida</h5>
           <div class="mt-4 flex flex-col gap-4">
             <a-form-model-item prop="title.ru">
               <p class="text-base font-bold text-black mb-2">Tadbir nomi</p>
@@ -262,7 +262,7 @@
                 class="border w-full border-solid border-border-darik min-h-[54px] bg-white rounded-lg px-4 text-base"
               /> -->
             </a-form-model-item>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4 sm:grid-cols-1">
               <a-form-model-item ref="name" class="form-item" prop="category">
                 <p class="text-base font-bold text-black mb-2">Tadbir turi</p>
                 <p class="text-[14px] text-black font-medium">
@@ -333,9 +333,9 @@
             /> -->
           </a-form-model-item>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
           <div class="flex justify-between">
-            <h5 class="decor-500 text-[24px] text-black">Spikerlar</h5>
+            <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Spikerlar</h5>
           </div>
           <div class="mt-4 mx-auto flex flex-col gap-4">
             <SpeakersCard
@@ -347,9 +347,9 @@
             />
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
           <div class="flex justify-between">
-            <h5 class="decor-500 text-[24px] text-black">
+            <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">
               Ishtirokchilar ({{ members?.length }})
             </h5>
             <button
@@ -383,8 +383,8 @@
             <a-empty />
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Tadbir rejasi</h5>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Tadbir rejasi</h5>
           <div class="mt-4">
             <p class="text-[14px] text-black font-medium" v-html="form.plan.ru"></p>
             <!-- <quill-editor
@@ -395,8 +395,8 @@
             /> -->
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Tashkilotchilar</h5>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Tashkilotchilar</h5>
           <div class="max-w-[470px] flex flex-col gap-4 mt-4">
             <a-form-model-item class="form-item" prop="phone_number">
               <p class="text-base font-semibold text-black mb-3">Telefon raqami</p>
@@ -469,8 +469,8 @@
             </a-form-model-item>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey">
-          <h5 class="decor-500 text-[24px] text-black">Media materiallar</h5>
+        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Media materiallar</h5>
           <div class="mt-4 flex flex-col gap-4">
             <div
               v-show="form.files.length > 0"
@@ -615,7 +615,7 @@
     <a-modal v-model="visible" centered @ok="() => (modal2Visible = false)" :width="524">
       <div>
         <div class="pb-6 border-[0] border-b border-solid border-grey-8">
-          <h4 class="decor-500 text-[24px] text-black">Spiker qo’shish</h4>
+          <h4 class="decor-500 text-[24px] text-black sm:text-[18px]">Spiker qo’shish</h4>
         </div>
         <div class="flex justify-center items-center gap-4 mt-6">
           <a-upload
@@ -800,10 +800,10 @@
     >
       <div>
         <div class="pb-6 border-[0] border-b border-solid border-grey-8">
-          <h4 class="decor-500 text-[24px] text-black">Spiker qo’shish</h4>
+          <h4 class="decor-500 text-[24px] text-black sm:text-[18px]">Spiker qo’shish</h4>
         </div>
         <div class="flex flex-col items-center gap-2 mt-6">
-          <h4 class="text-[24px] decor-500 text-black max-w-[363px] text-center">
+          <h4 class="text-[24px] decor-500 text-black sm:text-[20px] max-w-[363px] text-center">
             Tadbirni ochirishga aminmisiz?
           </h4>
           <p class="text-base text-grey-80">Tadbirni qaytarib bolmaydi</p>
@@ -865,7 +865,7 @@
     >
       <div>
         <div class="pb-6 border-[0] border-b border-solid border-grey-8">
-          <h4 class="decor-500 text-[24px] text-black">
+          <h4 class="decor-500 text-[24px] text-black sm:text-[18px]">
             Ishtirokchilar ({{ members_total }})
           </h4>
         </div>
@@ -1410,5 +1410,39 @@ export default {
 :deep(.ant-calendar-range-picker-separator) {
   display: inline-flex;
   align-items: center;
+}
+@media (max-width: 576px) {
+  .banner-upload :deep(.ant-upload) {
+    border-radius: 24px;
+    height: 214px;
+  }
+  .banner-image {
+    border-radius: 24px;
+    height: 214px;
+  }
+  .qr-code {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 16px;
+    align-items: center;
+  }
+  :deep(.ql-editor) {
+    min-height: 180px;
+  }
+  :deep(.ql-container) {
+    min-height: 180px;
+  }
+  :deep(.ant-upload) {
+    width: 100%;
+  }
+  .file-upload-item {
+    grid-template-columns: 1fr;
+  }
+  :deep(.ant-modal-content) {
+    border-radius: 16px;
+  }
+  :deep(.ant-modal-body) {
+    padding: 24px;
+  }
 }
 </style>

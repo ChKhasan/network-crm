@@ -1,8 +1,8 @@
 <template>
   <div class="home-page pt-10 pb-[160px]">
-    <div class="max-w-[818px] mx-auto 2xl:px-4">
+    <div class="max-w-[818px] mx-auto px-4">
       <div class="mb-3">
-        <h4 class="text-[24px] text-black decor-500">Ishtirokchilar</h4>
+        <h4 class="text-[24px] text-black decor-500 sm:text-[20px]">Ishtirokchilar</h4>
       </div>
       <div class="search">
         <div class="relative flex items-center w-full">
@@ -58,7 +58,7 @@
           </button>
         </div> -->
       </div>
-      <div class="list mt-8 flex flex-col gap-4 mb-6 px-6 py-6 rounded-[30px] bg-bg-grey" v-if="!loading">
+      <div class="list mt-8 flex flex-col gap-4 mb-6 px-6 py-6 rounded-[30px] bg-bg-grey sm:px-4 sm:py-4 sm:rounded-lg" v-if="!loading">
         <MembersCard v-for="member in members" :key="member?.id" :member="member" />
       </div>
       <div class="list mt-8 flex flex-col gap-6" v-if="loading">

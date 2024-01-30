@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="the-card rounded-[30px] bg-bg-grey px-4 py-[10px]">
+  <div class="the-card rounded-[30px] sm:rounded-2xl bg-bg-grey px-4 py-[10px] sm:px-4">
     <div class="image h-[210px] overflow-hidden rounded-2xl relative">
       <div class="absolute left-4 top-4">
         <p
@@ -41,11 +41,11 @@
       <div class="flex flex-col gap-[10px]">
         <div class="flex gap-2">
           <span
-            class="px-5 py-[10px] rounded-[500px] bg-white text-[14px] font-semibold"
+            class="px-5 sm:px-4 sm:py-2 py-[10px] rounded-[500px] bg-white text-[14px] flex items-center sm:text-[12px] font-semibold"
             >{{ moment(event?.start_date).format("DD MMM YYYY, HH:mm") }}</span
           >
           <span
-            class="flex gap-1 px-5 py-[10px] rounded-[500px] bg-white text-[14px] font-semibold"
+            class="flex gap-1 px-5 sm:px-4 sm:py-2 py-[10px] rounded-[500px] bg-white sm:text-[12px] text-[14px] font-semibold"
             ><svg
               width="20"
               height="20"
@@ -174,5 +174,12 @@ export default {
   display: grid;
   grid-template-columns: 362px 1fr;
   gap: 16px;
+}
+@media (max-width: 576px) {
+  .the-card {
+  display: grid;
+  grid-template-columns:  1fr;
+  gap: 12px;
+}
 }
 </style>
