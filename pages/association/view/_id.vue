@@ -22,7 +22,7 @@
         Uyushmalar royxatiga qaytish
       </button>
     </div>
-    <div class="flex justify-between sm:flex-col sm:gap-4">
+    <div class="flex justify-between sm:items-center sm:flex-col sm:gap-4">
       <h4 class="text-[24px] decor-500 text-black sm:text-[20px]">Yangi uyushma qo‘shish</h4>
       <div class="flex gap-3 sm:justify-end">
         <button
@@ -215,11 +215,11 @@
               alt=""
             />
           </div>
-          <div class="body flex flex-col gap-2 items-start justify-center">
-            <p class="text-base text-black">
+          <div class="body flex flex-col gap-2 items-start justify-center sm:items-center">
+            <p class="text-base text-black sm:flex sm:flex-col sm:items-center">
               Uyushma havolasi:
               <a
-                class="text-base text-black underline"
+                class="text-base text-black underline sm:text-center"
                 target="_black"
                 :href="`${base_url_client}/community/join/${form?.qr_code?.uuid}`"
                 >{{ `${base_url_client}/community/join/${form?.qr_code?.uuid}` }}</a

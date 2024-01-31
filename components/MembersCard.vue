@@ -17,7 +17,7 @@
     <div class="body flex justify-center w-full">
       <div class="flex flex-col gap-1 justify-center w-full">
         <h5 class="text-black decor-500 text-[14px]">{{ member?.user?.full_name }}</h5>
-        <p class="text-[14px] text-[#1878F3] font-semibold">{{ member?.job_title}}</p>
+        <p class="text-[14px] text-[#1878F3] font-semibold">{{ member?.job_title }}</p>
         <p class="text-[14px] text-grey-40 font-semibold">{{ member?.company_name }}</p>
       </div>
       <div
@@ -72,4 +72,5 @@ export default {
   grid-template-columns: 72px 1fr;
   gap: 16px;
 }
+
 </style>

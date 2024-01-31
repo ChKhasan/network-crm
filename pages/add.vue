@@ -1,7 +1,9 @@
 <template lang="html">
   <div class="create pt-[120px] sm:pt-[60px] pb-[120px] max-w-[818px] mx-auto px-4">
-    <div class="flex justify-between sm:flex-col sm:gap-4">
-      <h4 class="text-[24px] decor-500 text-black sm:text-[20px]">Yangi tadbir qo‘shish</h4>
+    <div class="flex justify-between sm:items-center sm:flex-col sm:gap-4">
+      <h4 class="text-[24px] decor-500 text-black sm:text-[20px]">
+        Yangi tadbir qo‘shish
+      </h4>
       <div class="flex gap-3 sm:justify-end">
         <button
           @click="$router.push('/')"
@@ -151,11 +153,13 @@
           <div class="image w-[100px] h-[100px]">
             <img class="w-full h-full" src="../assets/images/image 2.png" alt="" />
           </div>
-          <div class="body flex flex-col gap-2 items-start justify-center">
-            <p class="text-base text-black">
+          <div
+            class="body flex flex-col gap-2 items-start justify-center sm:items-center"
+          >
+            <p class="text-base text-black sm:flex sm:flex-col sm:items-center">
               Tadbir havolasi:
               <a
-                class="text-base text-black underline"
+                class="text-base text-black underline sm:text-center"
                 href="https://www.figma.com/proto/5m2C"
                 >https://www.figma.com/proto/5m2C</a
               >
@@ -182,11 +186,15 @@
             </a>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
           <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Tadbir haqida</h5>
           <div class="mt-4 flex flex-col gap-4">
             <a-form-model-item prop="title.ru">
-              <p class="text-base font-semibold text-black mb-2 sm:text-[14px]">Tadbir nomi</p>
+              <p class="text-base font-semibold text-black mb-2 sm:text-[14px]">
+                Tadbir nomi
+              </p>
               <input
                 type="text"
                 v-model="form.title.ru"
@@ -196,7 +204,9 @@
             </a-form-model-item>
             <div class="grid grid-cols-2 sm:grid-cols-1 gap-4">
               <a-form-model-item ref="name" class="form-item" prop="category">
-                <p class="text-base font-semibold text-black mb-2 sm:text-[14px]">Tadbir turi</p>
+                <p class="text-base font-semibold text-black mb-2 sm:text-[14px]">
+                  Tadbir turi
+                </p>
                 <a-select v-model="form.category" placeholder="Viloyat tanlang">
                   <a-select-option
                     :value="region?.id"
@@ -251,7 +261,9 @@
             />
           </a-form-model-item>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
           <div class="flex justify-between">
             <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Spikerlar</h5>
             <button
@@ -285,7 +297,9 @@
             />
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
           <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Tadbir rejasi</h5>
           <div class="mt-4">
             <quill-editor
@@ -296,7 +310,9 @@
             />
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
           <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Joylashuv</h5>
           <div class="mt-4">
             <client-only>
@@ -315,11 +331,15 @@
           </div>
         </div>
 
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
           <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Tashkilotchilar</h5>
           <div class="max-w-[470px] flex flex-col gap-4 mt-4">
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Telefon raqami</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">
+                Telefon raqami
+              </p>
               <div class="relative w-full flex items-center">
                 <a-input
                   class="w-full min-h-[50px] rounded-[8px]"
@@ -346,7 +366,9 @@
               </div>
             </a-form-model-item>
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Telegram @nickname</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">
+                Telegram @nickname
+              </p>
               <div class="relative w-full flex items-center">
                 <a-input
                   class="w-full min-h-[50px] rounded-[8px]"
@@ -375,7 +397,9 @@
           </div>
           <div class="mt-4">
             <a-form-model-item class="form-item">
-              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">Qo‘shimcha malumot:</p>
+              <p class="text-base font-semibold text-black mb-3 sm:text-[14px]">
+                Qo‘shimcha malumot:
+              </p>
               <quill-editor
                 style="min-height: 250px"
                 :options="editorOption"
@@ -385,9 +409,15 @@
             </a-form-model-item>
           </div>
         </div>
-        <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
-          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">Media materiallar</h5>
-          <div class="px-[28px] py-[28px] rounded-xl bg-white mt-4 flex flex-col gap-4 sm:px-6 sm:py-6">
+        <div
+          class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4"
+        >
+          <h5 class="decor-500 text-[24px] text-black sm:text-[18px]">
+            Media materiallar
+          </h5>
+          <div
+            class="px-[28px] py-[28px] rounded-xl bg-white mt-4 flex flex-col gap-4 sm:px-6 sm:py-6"
+          >
             <div
               v-show="form.files.length > 0"
               class="file-upload-item"
@@ -460,14 +490,14 @@
                 </a-upload>
               </div>
               <span class="w-full sm:hidden">
-              <a-form-model-item class="w-full sm:hidden">
-                <input
-                  placeholder="File nomini kiriting"
-                  class="border w-full border-solid border-border-darik min-h-[50px] bg-white rounded-lg px-4 sm:hidden"
-                  type="text"
-                  v-model="item.name.ru"
-                />
-              </a-form-model-item>
+                <a-form-model-item class="w-full sm:hidden">
+                  <input
+                    placeholder="File nomini kiriting"
+                    class="border w-full border-solid border-border-darik min-h-[50px] bg-white rounded-lg px-4 sm:hidden"
+                    type="text"
+                    v-model="item.name.ru"
+                  />
+                </a-form-model-item>
               </span>
               <button class="sm:hidden" @click="deleteFile(item.indexId)">
                 <svg
@@ -505,47 +535,47 @@
               </button>
               <div class="hidden sm:flex gap-2">
                 <a-form-model-item class="w-full">
-                <input
-                  placeholder="File nomini kiriting"
-                  class="border w-full border-solid border-border-darik min-h-[50px] bg-white rounded-lg px-4"
-                  type="text"
-                  v-model="item.name.ru"
-                />
-              </a-form-model-item>
-              <button @click="deleteFile(item.indexId)">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g opacity="0.4">
+                  <input
+                    placeholder="File nomini kiriting"
+                    class="border w-full border-solid border-border-darik min-h-[50px] bg-white rounded-lg px-4"
+                    type="text"
+                    v-model="item.name.ru"
+                  />
+                </a-form-model-item>
+                <button @click="deleteFile(item.indexId)">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g opacity="0.4">
+                      <path
+                        d="M11.7196 18.9582H8.30521C6.09607 18.9582 4.30521 17.1673 4.30521 14.9582V4.7915H15.7196V14.9582C15.7196 17.1673 13.9288 18.9582 11.7196 18.9582Z"
+                        fill="#FF0000"
+                      />
+                    </g>
                     <path
-                      d="M11.7196 18.9582H8.30521C6.09607 18.9582 4.30521 17.1673 4.30521 14.9582V4.7915H15.7196V14.9582C15.7196 17.1673 13.9288 18.9582 11.7196 18.9582Z"
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M11.643 8.33301C11.9808 8.33301 12.2545 8.61283 12.2545 8.95801L12.2545 13.958C12.2545 14.3032 11.9808 14.583 11.643 14.583C11.3053 14.583 11.0316 14.3032 11.0316 13.958L11.0316 8.95801C11.0316 8.61283 11.3053 8.33301 11.643 8.33301Z"
                       fill="#FF0000"
                     />
-                  </g>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M11.643 8.33301C11.9808 8.33301 12.2545 8.61283 12.2545 8.95801L12.2545 13.958C12.2545 14.3032 11.9808 14.583 11.643 14.583C11.3053 14.583 11.0316 14.3032 11.0316 13.958L11.0316 8.95801C11.0316 8.61283 11.3053 8.33301 11.643 8.33301Z"
-                    fill="#FF0000"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M8.38178 8.33301C8.7195 8.33301 8.99327 8.61283 8.99327 8.95801L8.99327 13.958C8.99327 14.3032 8.7195 14.583 8.38178 14.583C8.04407 14.583 7.77029 14.3032 7.77029 13.958L7.77029 8.95801C7.77029 8.61283 8.04407 8.33301 8.38178 8.33301Z"
-                    fill="#FF0000"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M7.38891 2.68698C7.80474 2.04944 8.5048 1.6665 9.25446 1.6665H10.7703C11.52 1.6665 12.2201 2.04944 12.6359 2.68698L13.6009 4.1665H17.3502C17.688 4.1665 17.9617 4.44633 17.9617 4.7915C17.9617 5.13668 17.688 5.4165 17.3502 5.4165H2.67457C2.33685 5.4165 2.06308 5.13668 2.06308 4.7915C2.06308 4.44633 2.33685 4.1665 2.67457 4.1665H6.42389L7.38891 2.68698Z"
-                    fill="#FF0000"
-                  />
-                </svg>
-              </button>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M8.38178 8.33301C8.7195 8.33301 8.99327 8.61283 8.99327 8.95801L8.99327 13.958C8.99327 14.3032 8.7195 14.583 8.38178 14.583C8.04407 14.583 7.77029 14.3032 7.77029 13.958L7.77029 8.95801C7.77029 8.61283 8.04407 8.33301 8.38178 8.33301Z"
+                      fill="#FF0000"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M7.38891 2.68698C7.80474 2.04944 8.5048 1.6665 9.25446 1.6665H10.7703C11.52 1.6665 12.2201 2.04944 12.6359 2.68698L13.6009 4.1665H17.3502C17.688 4.1665 17.9617 4.44633 17.9617 4.7915C17.9617 5.13668 17.688 5.4165 17.3502 5.4165H2.67457C2.33685 5.4165 2.06308 5.13668 2.06308 4.7915C2.06308 4.44633 2.33685 4.1665 2.67457 4.1665H6.42389L7.38891 2.68698Z"
+                      fill="#FF0000"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
             <a-empty v-show="form.files.length == 0" />
@@ -579,6 +609,54 @@
         </div>
       </div>
     </a-form-model>
+    <div class="flex gap-3 justify-center mt-4">
+      <button
+        @click="$router.push('/')"
+        class="h-12 px-5 rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold text-black gap-2"
+      >
+        Bekor qilish<svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14.4617 14.4441L5.575 5.55576M5.575 14.4441L14.4617 5.55576"
+            stroke="#020105"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <button
+        @click="onSubmit"
+        class="h-12 px-5 rounded-xl bg-[#3C4BDC] flex items-center text-[14px] font-semibold text-white gap-2"
+      >
+        Saqlash
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            opacity="0.4"
+            d="M17.3333 9.00008C17.3333 13.6025 13.6024 17.3334 8.99999 17.3334C4.39762 17.3334 0.666656 13.6025 0.666656 9.00008C0.666656 4.39771 4.39762 0.666748 8.99999 0.666748C13.6024 0.666748 17.3333 4.39771 17.3333 9.00008Z"
+            fill="white"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.717 6.00668C12.9895 6.2186 13.0386 6.61127 12.8267 6.88374L9.48751 11.177C8.96774 11.8452 7.99007 11.9319 7.36079 11.3656L5.24856 9.46459C4.99199 9.23368 4.97119 8.83849 5.2021 8.58193C5.43301 8.32536 5.8282 8.30456 6.08476 8.53547L8.197 10.4365C8.2869 10.5174 8.42656 10.505 8.50082 10.4095L11.84 6.11632C12.0519 5.84385 12.4446 5.79476 12.717 6.00668Z"
+            fill="white"
+          />
+        </svg>
+      </button>
+    </div>
     <a-modal v-model="visible" centered @ok="() => (modal2Visible = false)" :width="524">
       <div>
         <div class="pb-6 border-[0] border-b border-solid border-grey-8">

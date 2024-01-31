@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="create pt-[120px] sm:pt-[60px] pb-[120px] max-w-[818px] mx-auto px-4">
-    <div class="flex justify-between sm:flex-col sm:gap-4">
+    <div class="flex justify-between sm:items-center sm:flex-col sm:gap-4">
       <h4 class="text-[24px] decor-500 text-black sm:text-[20px]">Uyushmani o'zgartirish</h4>
       <div class="flex gap-3  sm:justify-end">
         <button
@@ -157,11 +157,11 @@
               alt=""
             />
           </div>
-          <div class="body flex flex-col gap-2 items-start justify-center">
-            <p class="text-base text-black">
+          <div class="body flex flex-col gap-2 items-start justify-center sm:items-center">
+            <p class="text-base text-black sm:flex sm:flex-col sm:items-center">
               Uyushma havolasi:
               <a
-                class="text-base text-black underline"
+                class="text-base text-black underline sm:text-center"
                 target="_black"
                 :href="`${base_url_client}/community/join/${form?.qr_code?.uuid}`"
                 >{{ `${base_url_client}/community/join/${form?.qr_code?.uuid}` }}</a
@@ -751,7 +751,55 @@
         </div>
       </div>
     </a-form-model>
-
+    <div class="flex gap-3 justify-center mt-4">
+        <button
+          @click="$router.go(-1)"
+          class="h-12 px-5 rounded-xl bg-apple-grey flex items-center text-[14px] font-semibold text-black gap-2"
+        >
+          Bekor qilish<svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.4617 14.4441L5.575 5.55576M5.575 14.4441L14.4617 5.55576"
+              stroke="#020105"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+          @click="onSubmit"
+          class="h-12 px-5 rounded-xl bg-[#3C4BDC] flex items-center text-[14px] font-semibold text-white gap-2"
+          :class="{ 'pointer-events-none opacity-50': loader }"
+        >
+          <span v-if="!loader">Saqlash</span> <LoaderBtn v-else />
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.4"
+              d="M17.3333 9.00008C17.3333 13.6025 13.6024 17.3334 8.99999 17.3334C4.39762 17.3334 0.666656 13.6025 0.666656 9.00008C0.666656 4.39771 4.39762 0.666748 8.99999 0.666748C13.6024 0.666748 17.3333 4.39771 17.3333 9.00008Z"
+              fill="white"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12.717 6.00668C12.9895 6.2186 13.0386 6.61127 12.8267 6.88374L9.48751 11.177C8.96774 11.8452 7.99007 11.9319 7.36079 11.3656L5.24856 9.46459C4.99199 9.23368 4.97119 8.83849 5.2021 8.58193C5.43301 8.32536 5.8282 8.30456 6.08476 8.53547L8.197 10.4365C8.2869 10.5174 8.42656 10.505 8.50082 10.4095L11.84 6.11632C12.0519 5.84385 12.4446 5.79476 12.717 6.00668Z"
+              fill="white"
+            />
+          </svg>
+        </button>
+      </div>
     <Loader v-if="loading" />
   </div>
 </template>
