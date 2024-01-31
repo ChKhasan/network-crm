@@ -309,7 +309,7 @@
           <div class="mt-4 mb-4">
             <a-form-model-item prop="desc.ru">
               <p class="text-base font-bold text-black mb-2">
-                OTadbir haqida qisqacha malumot
+                Tadbir haqida qisqacha malumot
               </p>
               <p class="text-[14px] text-black font-medium" v-html="form.desc.ru"></p>
               <!-- <quill-editor

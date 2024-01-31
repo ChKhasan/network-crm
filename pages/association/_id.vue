@@ -246,7 +246,7 @@
           <div class="mt-4 mb-4">
             <a-form-model-item>
               <p class="text-base font-semibold text-black mb-2">
-                OUyushma haqida qisqacha malumot
+                Uyushma haqida qisqacha malumot
               </p>
               <quill-editor
                 style="min-height: 250px"

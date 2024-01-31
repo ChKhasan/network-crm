@@ -157,8 +157,8 @@
               Uyushma havolasi:
               <a
                 class="text-base text-black underline sm:text-center"
-                href="https://www.figma.com/proto/5m2C"
-                >https://www.figma.com/proto/5m2C</a
+                href="https://justlink.uz/event"
+                >https://justlink.uz/event</a
               >
             </p>
             <a
@@ -239,7 +239,7 @@
           <div class="mt-4 mb-4">
             <a-form-model-item>
               <p class="text-base font-semibold text-black mb-2">
-                OUyushma haqida qisqacha malumot
+                Uyushma haqida qisqacha malumot
               </p>
               <quill-editor
                 style="min-height: 250px"
