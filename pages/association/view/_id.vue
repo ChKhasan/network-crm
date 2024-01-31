@@ -582,7 +582,7 @@
             >
               <div>
                 <div
-                  class="relative w-[362px] px-6 items-start gap-2 py-6 rounded-lg flex justify-start bg-white"
+                  class="relative w-[362px] sm:w-full px-6 items-start gap-2 py-6 rounded-lg flex justify-start bg-white"
                 >
                   <svg
                     width="36"

@@ -354,7 +354,7 @@
             </h5>
             <button
               @click="visibleMembers = true"
-              class="py-[10px] px-5 text-[#3C4BDC] rounded-[500px] bg-white flex gap-1 font-medium"
+              class="py-[10px] px-5 text-[#3C4BDC] rounded-[500px] bg-white flex gap-1 font-medium sm:px-2 sm:text-[14px] sm:hidden"
               :class="{ 'pointer-events-none opacity-50': members_total <= 10 }"
             >
               Barchasini ko‘rish
@@ -372,7 +372,7 @@
               </svg>
             </button>
           </div>
-          <div class="mt-4 mx-auto grid grid-cols-2 gap-4" v-if="members.length > 0">
+          <div class="mt-4 mx-auto grid grid-cols-2 gap-4 sm:grid-cols-1" v-if="members.length > 0">
             <MembersCard
               v-for="(member, index) in members"
               :key="index"
@@ -381,6 +381,27 @@
           </div>
           <div class="flex justify-center mt-6" v-else>
             <a-empty />
+          </div>
+          <div class="sm:flex hidden justify-center">
+            <button
+              @click="visibleMembers = true"
+              class="py-[10px] px-5 text-[#3C4BDC] mt-4 rounded-[500px] bg-white gap-1 font-medium hidden sm:flex "
+              :class="{ 'pointer-events-none opacity-50': members_total <= 10 }"
+            >
+              Barchasini ko‘rish
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.8542 2.66406C9.43999 2.66406 9.1042 2.99985 9.1042 3.41406C9.1042 3.82828 9.43999 4.16406 9.8542 4.16406V2.66406ZM16.5875 3.41406H17.3375C17.3375 2.99985 17.0018 2.66406 16.5875 2.66406V3.41406ZM15.8375 10.1466C15.8375 10.5608 16.1733 10.8966 16.5875 10.8966C17.0018 10.8966 17.3375 10.5608 17.3375 10.1466H15.8375ZM8.2114 10.7287C7.91849 11.0216 7.91847 11.4965 8.21135 11.7894C8.50422 12.0823 8.9791 12.0823 9.27201 11.7894L8.2114 10.7287ZM17.1078 3.95442C17.4007 3.66154 17.4008 3.18667 17.1079 2.89376C16.815 2.60085 16.3401 2.60083 16.0472 2.8937L17.1078 3.95442ZM7.9867 6.8724C8.40092 6.8724 8.7367 6.53661 8.7367 6.1224C8.7367 5.70818 8.40092 5.3724 7.9867 5.3724V6.8724ZM14.6284 12.0132C14.6284 11.599 14.2926 11.2632 13.8784 11.2632C13.4642 11.2632 13.1284 11.599 13.1284 12.0132H14.6284ZM9.8542 4.16406H16.5875V2.66406H9.8542V4.16406ZM15.8375 3.41406V10.1466H17.3375V3.41406H15.8375ZM9.27201 11.7894L17.1078 3.95442L16.0472 2.8937L8.2114 10.7287L9.27201 11.7894ZM7.9867 5.3724H6.26837V6.8724H7.9867V5.3724ZM6.26837 5.3724C4.63416 5.3724 3.3092 6.69735 3.3092 8.33156H4.8092C4.8092 7.52578 5.46258 6.8724 6.26837 6.8724V5.3724ZM3.3092 8.33156V13.7324H4.8092V8.33156H3.3092ZM3.3092 13.7324C3.3092 15.3666 4.63416 16.6916 6.26837 16.6916V15.1916C5.46258 15.1916 4.8092 14.5382 4.8092 13.7324H3.3092ZM6.26837 16.6916H11.6692V15.1916H6.26837V16.6916ZM11.6692 16.6916C13.3034 16.6916 14.6284 15.3666 14.6284 13.7324H13.1284C13.1284 14.5382 12.475 15.1916 11.6692 15.1916V16.6916ZM14.6284 13.7324V12.0132H13.1284V13.7324H14.6284Z"
+                  fill="#3C4BDC"
+                />
+              </svg>
+            </button>
           </div>
         </div>
         <div class="about-block px-6 py-6 rounded-[30px] bg-bg-grey sm:rounded-2xl sm:px-4 sm:py-4">
@@ -480,7 +501,7 @@
             >
               <div>
                 <div
-                  class="relative w-[362px] px-6 items-start gap-2 py-6 rounded-lg flex justify-start bg-white"
+                  class="relative w-[362px] sm:w-full px-6 items-start gap-2 py-6 rounded-lg flex justify-start bg-white"
                 >
                   <svg
                     width="36"
