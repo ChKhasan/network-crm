@@ -1,6 +1,6 @@
 export default {
   head: {
-    title: "network-crm",
+    title: "JustLink Crm",
     htmlAttrs: {
       lang: "en",
     },
@@ -10,7 +10,7 @@ export default {
       { hid: "description", name: "description", content: "" },
       { name: "format-detection", content: "telephone=no" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.svg" }],
   },
 
   css: ["ant-design-vue/dist/antd.css", "@/assets/css/main.css"],
@@ -40,7 +40,6 @@ export default {
   },
   ssr: false,
   components: true,
-
   buildModules: ["@nuxtjs/tailwindcss"],
 
   modules: ["@nuxtjs/axios", "@nuxtjs/dotenv", "nuxt-leaflet"],

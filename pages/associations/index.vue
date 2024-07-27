@@ -84,7 +84,7 @@
       <div class="list mt-8 flex flex-col gap-6 mb-6" v-if="!loading">
         <TheCard v-for="event in events" :key="event?.id" :event="event" />
       </div>
-      <div class="list mt-8 flex flex-col gap-6" v-if="loading">
+      <div class="list mt-8 flex flex-col gap-6 " v-if="loading">
         <a-skeleton
           :paragraph="false"
           class="loading-card"

@@ -24,7 +24,6 @@ export default async function ({ redirect, $axios, store }) {
       const tokens = await $axios.$post(baseUrl + "/auth/token/refresh", {
         refresh: localStorage.getItem("refreshToken"),
       });
-      console.log(tokens?.access);
       await localStorage.setItem("accessToken", tokens?.access);
       await localStorage.setItem("refreshToken", tokens?.refresh);
 
@@ -32,7 +31,6 @@ export default async function ({ redirect, $axios, store }) {
     } catch (e) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
-
       redirect("/registration");
     }
   }

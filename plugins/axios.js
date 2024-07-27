@@ -1,5 +1,4 @@
 export default function ({ $axios, redirect, error }, inject) {
-  console.log(process.env.BASE_URL);
   const axios = $axios.create({
     baseURL:
       process.env.BASE_URL || "https://networking.pythonanywhere.com/api",
@@ -20,7 +19,7 @@ export default function ({ $axios, redirect, error }, inject) {
     //     statusCode: err.response.status,
     //     message: "This page could not be found",
     //     layout: "error",
-    //   });
+    //   });   
     // }
     return Promise.reject(err);
   });
